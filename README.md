@@ -8,7 +8,7 @@ https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
 
 
 # Structured documents
-  - Create a reusable RadialMenu without relying of any CustomRenderer
+  - Create a reusable RadialMenu without relying on any CustomRenderer
  
 
 
