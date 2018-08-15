@@ -95,6 +95,15 @@ https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
             });
 ```
 
+## Events
+```
+  Menu.ItemTapped += async (sender, location) =>
+            {
+                  var locationTapped = nameof(location);
+            };
+
+```
+
 ## Enumerations
 Project contain an enumeration which is used to set each menu item location within RadialMenu. 
 By default it follows clockwise to animate items when showing(First North then North-East and so on).
