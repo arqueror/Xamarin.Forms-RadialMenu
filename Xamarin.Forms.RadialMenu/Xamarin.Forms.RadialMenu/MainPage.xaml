@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Xamarin.Forms.RadialMenu"
+             x:Class="Xamarin.Forms.RadialMenu.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <local:RadialMenu MenuItemsSource="{Binding MenuItems}" 
+                          MainMenuCloseButtonImageSource="close_circle"  
+                          OuterCircleImageSource="outer_circle" 
+                          MainMenuImageSource="menu_circle"  
+                          x:Name="Menu" HorizontalOptions="Center" 
+                          VerticalOptions="Center" ></local:RadialMenu>
+        <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
+    </Grid>
+</ContentPage>
