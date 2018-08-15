@@ -16,7 +16,7 @@ namespace Xamarin.Forms.RadialMenu
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class RadialMenu : ContentView
 	{
-        public event EventHandler ItemTapped;
+        public event EventHandler<Enumerations.Enumerations.RadialMenuLocation> ItemTapped;
 
         public static readonly BindableProperty OuterCircleImageSourceProperty =
             BindableProperty.Create(nameof(OuterCircleImageSource), typeof(ImageSource), typeof(RadialMenu), default(ImageSource));
@@ -82,7 +82,7 @@ namespace Xamarin.Forms.RadialMenu
                     if (!mainGrid.Children.Contains(item))
                         mainGrid.Children.Add(item);
                     var source = (Xamarin.Forms.FileImageSource)item.Source;
-                    HandleOptionClicked(item, source.File);
+                    HandleOptionClicked(item, item.Location);
                 }
             }
         }
@@ -136,18 +136,18 @@ namespace Xamarin.Forms.RadialMenu
             {
                 var item = i as RadialMenuItem;
                 var source = (Xamarin.Forms.FileImageSource)item.Source;
-                HandleOptionClicked(item, source.File);
+                HandleOptionClicked(item, item.Location);
             }
 
         }
 
-        private void HandleOptionClicked(Image image, string value)
+        private void HandleOptionClicked(Image image, Enumerations.Enumerations.RadialMenuLocation value)
         {
             image.GestureRecognizers.Add(new TapGestureRecognizer()
             {
                 Command = new Command(() =>
                 {
-                    ItemTapped?.Invoke(this, new SelectedItemChangedEventArgs(value));
+                    ItemTapped?.Invoke(this, value);
                     CloseMenu();
                 }),
                 NumberOfTapsRequired = 1
@@ -262,7 +262,7 @@ namespace Xamarin.Forms.RadialMenu
                     if (!mainGrid.Children.Contains(newItem))
                         mainGrid.Children.Add(newItem);
                     var source = (Xamarin.Forms.FileImageSource)newItem.Source;
-                    HandleOptionClicked(newItem, source.File);
+                    HandleOptionClicked(newItem, newItem.Location);
                 }
 
                 notifyCollection.CollectionChanged += (sender, e) =>
@@ -279,7 +279,7 @@ namespace Xamarin.Forms.RadialMenu
                                 if (!mainGrid.Children.Contains(newItem))
                                     mainGrid.Children.Add(newItem);
                                 var source = (Xamarin.Forms.FileImageSource)newItem.Source;
-                                HandleOptionClicked(newItem, source.File);
+                                HandleOptionClicked(newItem, newItem.Location);
                             }
                             foreach (var newItem in MenuItemsSource)
                             {

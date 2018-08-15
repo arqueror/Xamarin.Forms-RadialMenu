@@ -14,7 +14,6 @@ namespace Xamarin.Forms.RadialMenu
 	{
         //public ObservableCollection<RadialMenuItem> MenuItems;
         public MainMenuViewModel vm;
-
         public MainPage()
         {
             InitializeComponent();
@@ -79,10 +78,9 @@ namespace Xamarin.Forms.RadialMenu
             });
 
 
-            Menu.ItemTapped += async (sender, e) =>
+            Menu.ItemTapped += async (sender, location) =>
             {
-                var evnt = (SelectedItemChangedEventArgs)e;
-                Notifier.Text = (string)evnt.SelectedItem;
+                Notifier.Text = location.ToString();
                 await Task.Delay(2000);
                 Notifier.Text = "";
 
