@@ -2,7 +2,7 @@
 Xamarin.Forms simple radial menu without renderers
 
 
-based on :
+based on:
 https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
 
 
@@ -120,7 +120,8 @@ By default it follows clockwise to animate items when showing(First North then N
 - Add Nested lists to each RadialMenuItem
 - Add different animations to show radial menu and RadialMenuItems
 
-
-
+# Special Thanks
+ Thanks to Alan Beech (https://github.com/alanbeech) for the base code used for this repo.
+<br/>
 
 **Happy coding! :sparkles: :camel: :boom:**
