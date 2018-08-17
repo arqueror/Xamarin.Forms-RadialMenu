@@ -1,6 +1,5 @@
 # Xamarin.Forms-RadialMenu
-Xamarin.Forms simple radial menu without renderers
-
+Xamarin.Forms simple radial menu without renderers. Only Android and iOS supported
 
 based on:
 https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
@@ -10,6 +9,10 @@ https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
 # Motivation
   - Create a reusable RadialMenu without relying on any CustomRenderer
  
+ 
+# Installation
+Install NuGet package: https://www.nuget.org/packages/Xamarin.Forms.RadialMenu/
+or download repo and compile it manually so you can reference it from your target project :D
 
 
 # Usage
