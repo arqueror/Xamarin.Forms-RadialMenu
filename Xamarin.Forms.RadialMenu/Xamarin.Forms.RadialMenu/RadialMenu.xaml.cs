@@ -13,9 +13,9 @@ using Xamarin.Forms.Xaml;
 
 namespace Xamarin.Forms.RadialMenu
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RadialMenu : ContentView
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class RadialMenu : ContentView
+    {
         public event EventHandler<Enumerations.Enumerations.RadialMenuLocation> ItemTapped;
 
         public static readonly BindableProperty OuterCircleImageSourceProperty =
@@ -74,6 +74,7 @@ namespace Xamarin.Forms.RadialMenu
             }
             set
             {
+
                 SetValue(MenuItemsSourceProperty, value);
                 foreach (var i in value)
                 {
@@ -118,7 +119,10 @@ namespace Xamarin.Forms.RadialMenu
                 case Enumerations.Enumerations.RadialMenuLocation.E:
                     _item.Margin = new Thickness(130, 0, 0, 0);
                     break;
+
             }
+            _item.IsVisible = false;
+            _item.Draw();
         }
         public RadialMenu()
         {
@@ -141,9 +145,10 @@ namespace Xamarin.Forms.RadialMenu
 
         }
 
-        private void HandleOptionClicked(Image image, Enumerations.Enumerations.RadialMenuLocation value)
+        private void HandleOptionClicked(RadialMenuItem item, Enumerations.Enumerations.RadialMenuLocation value)
         {
-            image.GestureRecognizers.Add(new TapGestureRecognizer()
+            
+            item.GestureRecognizers.Add(new TapGestureRecognizer()
             {
                 Command = new Command(() =>
                 {
@@ -167,7 +172,7 @@ namespace Xamarin.Forms.RadialMenu
 
         }
 
-        private async Task CloseMenu()
+        public async Task CloseMenu()
         {
             if (!_isAnimating)
             {
@@ -220,9 +225,9 @@ namespace Xamarin.Forms.RadialMenu
 
         }
 
-        private async Task HideButtons()
+        private async Task HideButtons(uint speed=25)
         {
-            var speed = 25U;
+            if (MenuItemsSource == null || MenuItemsSource.Count <= 0) return;
             var list = MenuItemsSource as IList<RadialMenuItem>;
             var orderedList = list?.OrderBy(x => x.Location).Reverse();
             if (orderedList != null)
@@ -236,6 +241,7 @@ namespace Xamarin.Forms.RadialMenu
 
         private async Task ShowButtons()
         {
+            if (MenuItemsSource == null || MenuItemsSource.Count <= 0) return;
             var speed = 25U;
             var list = MenuItemsSource as IList<RadialMenuItem>;
             var orderedList = list?.OrderBy(x => x.Location);
@@ -243,6 +249,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 foreach (var i in orderedList)
                 {
+                    i.IsVisible = true;
                     await i.FadeTo(1, speed);
                 }
             }
@@ -255,7 +262,7 @@ namespace Xamarin.Forms.RadialMenu
             var notifyCollection = newValue as INotifyCollectionChanged;
             if (notifyCollection != null)
             {
-                HideButtons();
+                HideButtons(0);
                 foreach (RadialMenuItem newItem in MenuItemsSource)
                 {
                     OrganizeItem(newItem);
