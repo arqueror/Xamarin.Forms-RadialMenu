@@ -234,6 +234,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 foreach (var i in orderedList)
                 {
+                    i.IsVisible = false;
                     await i.FadeTo(0, speed);
                 }
             }

@@ -10,11 +10,48 @@
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <local:RadialMenu MenuItemsSource="{Binding MenuItems}" 
-                          MainMenuCloseButtonImageSource="close_circle"  
-                          OuterCircleImageSource="outer_circle" 
-                          MainMenuImageSource="menu_circle"  
                           x:Name="Menu" HorizontalOptions="Center" 
-                          VerticalOptions="Center" ></local:RadialMenu>
+                          VerticalOptions="Center" >
+            <local:RadialMenu.MainMenuCloseButtonImageSource>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="iOS">
+                        <FileImageSource File="close_circle.png"/>
+                    </On>
+                    <On Platform="Android">
+                        <FileImageSource File="close_circle.png"/>
+                    </On>
+                    <On Platform="UWP">
+                        <FileImageSource File="close_circle.png"/>
+                    </On>
+                </OnPlatform>
+            </local:RadialMenu.MainMenuCloseButtonImageSource>
+            <local:RadialMenu.MainMenuImageSource>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="iOS">
+                        <FileImageSource File="menu_circle.png"/>
+                    </On>
+                    <On Platform="Android">
+                        <FileImageSource File="menu_circle.png"/>
+                    </On>
+                    <On Platform="UWP">
+                        <FileImageSource File="menu_circle.png"/>
+                    </On>
+                </OnPlatform>
+            </local:RadialMenu.MainMenuImageSource>
+            <local:RadialMenu.OuterCircleImageSource>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="iOS">
+                        <FileImageSource File="outer_circle.png"/>
+                    </On>
+                    <On Platform="Android">
+                        <FileImageSource File="outer_circle.png"/>
+                    </On>
+                    <On Platform="UWP">
+                        <FileImageSource File="outer_circle.png"/>
+                    </On>
+                </OnPlatform>
+            </local:RadialMenu.OuterCircleImageSource>
+        </local:RadialMenu>
         <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
     </Grid>
 </ContentPage>

@@ -35,7 +35,7 @@ namespace Xamarin.Forms.RadialMenu
             };
             vm.MenuItems.Add(new RadialMenuItem()
             {
-                Source = "menu_lorry",
+                Source = "menu_lorry.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
@@ -44,7 +44,7 @@ namespace Xamarin.Forms.RadialMenu
             });
             vm.MenuItems.Add(new RadialMenuItem()
             {
-                Source = "menu_factory",
+                Source = "menu_factory.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
@@ -53,7 +53,7 @@ namespace Xamarin.Forms.RadialMenu
             });
             vm.MenuItems.Add(new CustomizedItem()
             {
-                Source = "menu_cow",
+                Source = "menu_cow.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
@@ -62,7 +62,7 @@ namespace Xamarin.Forms.RadialMenu
             });
             vm.MenuItems.Add(new RadialMenuItem()
             {
-                Source = "menu_plane",
+                Source = "menu_plane.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
@@ -71,7 +71,7 @@ namespace Xamarin.Forms.RadialMenu
             });
             vm.MenuItems.Add(new RadialMenuItem()
             {
-                Source = "menu_award",
+                Source = "menu_award.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
