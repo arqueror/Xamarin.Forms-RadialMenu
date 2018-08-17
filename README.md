@@ -89,8 +89,7 @@ By default it follows clockwise to animate items when showing(First North then N
  ![Image of Yaktocat](https://image.shutterstock.com/image-vector/wind-rose-cardinal-points-star-260nw-1011439111.jpg)
 
 # How it looks
-![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_01.PNG?raw=false)
-![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_02.PNG?raw=false)
+![Alt Text](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu.gif)
   
   
   # Adding Custom Content
