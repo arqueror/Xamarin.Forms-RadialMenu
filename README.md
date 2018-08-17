@@ -124,7 +124,8 @@ By default it follows clockwise to animate items when showing(First North then N
  ![Image of Yaktocat](https://image.shutterstock.com/image-vector/wind-rose-cardinal-points-star-260nw-1011439111.jpg)
 
 # How it looks
-  ![Image of Yaktocat](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/emulatorImages/RadialMenu_01.PNG?raw=false)![Image of Yaktocat](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/emulatorImages/RadialMenu_02.PNG?raw=false)
+![Image of Yaktocat](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/emulatorImages/RadialMenu_01.PNG?raw=false)
+![Image of Yaktocat](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/emulatorImages/RadialMenu_02.PNG?raw=false)
   
   
   # Adding Custom Content
