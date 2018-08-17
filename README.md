@@ -1,5 +1,5 @@
 # Xamarin.Forms-RadialMenu
-Xamarin.Forms simple radial menu without renderers. Only Android and iOS supported
+Xamarin.Forms simple radial menu without renderers. **Android, iOS and UWP Supported**
 
 based on:
 https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
@@ -15,28 +15,23 @@ Install NuGet package: https://www.nuget.org/packages/Xamarin.Forms.RadialMenu/
 or download repo and compile it manually so you can reference it from your target project :D
 
 
-# Usage
+# Usage (iOS and Android)
 **1.- Just reference it in your View and set MenuItemsSource property:**
 ```
 
-   <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-        </Grid.RowDefinitions>
+//Create instance
         <local:RadialMenu MenuItemsSource="{Binding MenuItems}" 
                           MainMenuCloseButtonImageSource="close_circle"  
                           OuterCircleImageSource="outer_circle" 
                           MainMenuImageSource="menu_circle"  
                           x:Name="Menu" HorizontalOptions="Center" 
                           VerticalOptions="Center" ></local:FilterMenu>
-        <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
-    </Grid>
   ```  
     
     
 **2.- And your ViewModel code will look similar to:**
 ```
+//Add controls to Menu collection
             vm = new MainMenuViewModel();
             BindingContext = vm;
             vm.MenuItems = new ObservableCollection<RadialMenuItem>()
@@ -60,42 +55,48 @@ or download repo and compile it manually so you can reference it from your targe
                 HorizontalOptions = LayoutOptions.Center,
                 Location = Enumerations.Enumerations.RadialMenuLocation.Ne
             });
+ ........
+```
+
+# Usage (UWP*)
+For UWP you need to put your image files in your application root folder and its mandatory for you to add the extension of your files, otherwise menu won't show up.Probably good idea to use **OnPlatform** for this.
+```
+//Create instance
+ <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" 
+                          MainMenuCloseButtonImageSource="close_circle.png"   
+                          OuterCircleImageSource="outer_circle.png"           
+                          MainMenuImageSource="menu_circle.png"              
+                          x:Name="Menu" HorizontalOptions="Center" 
+                          VerticalOptions="Center" ></radial:RadialMenu>
+
+
+//Add controls to Menu collection with file extension
+vm = new MainMenuViewModel();
+            BindingContext = vm;
+            var custItem =
+            vm.MenuItems = new ObservableCollection<RadialMenuItem>()
+            {
+                new RadialMenuItem()
+                {
+                    Source = "menu_paint.png",
+                    WidthRequest = 38,
+                    HeightRequest = 38,
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Center,
+                    Location = Enumerations.RadialMenuLocation.N,Title="North"
+                }
+            };
             vm.MenuItems.Add(new RadialMenuItem()
             {
-                Source = "menu_factory",
+                Source = "menu_lorry.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.Enumerations.RadialMenuLocation.E
+                Location = Enumerations.RadialMenuLocation.Ne
             });
-            vm.MenuItems.Add(new RadialMenuItem()
-            {
-                Source = "menu_cow",
-                WidthRequest = 38,
-                HeightRequest = 38,
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.Enumerations.RadialMenuLocation.Se
-            });
-            vm.MenuItems.Add(new RadialMenuItem()
-            {
-                Source = "menu_plane",
-                WidthRequest = 38,
-                HeightRequest = 38,
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.Enumerations.RadialMenuLocation.S
-            });
-            vm.MenuItems.Add(new RadialMenuItem()
-            {
-                Source = "menu_award",
-                WidthRequest = 38,
-                HeightRequest = 38,
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.Enumerations.RadialMenuLocation.Sw
-            });
+.........
+
 ```
 
 ## Events
