@@ -15,7 +15,7 @@ Install NuGet package: https://www.nuget.org/packages/Xamarin.Forms.RadialMenu/
 or download repo and compile it manually so you can reference it from your target project :D
 
 
-# Usage (iOS and Android)
+# Usage
 **1.- Just reference it in your View and set MenuItemsSource property:**
 ```
 //Add namespace
