@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Ricardo Vasquez Sierra</Authors>
+    <Company />
+    <Product>Xamarin.Forms.RadialMenu</Product>
+    <PackageProjectUrl>https://github.com/arqueror/Xamarin.Forms-RadialMenu</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://arqueror.blob.core.windows.net/publicfiles/Icon.ico</PackageIconUrl>
+    <RepositoryUrl>https://github.com/arqueror/Xamarin.Forms-RadialMenu</RepositoryUrl>
+    <RepositoryType></RepositoryType>
+    <PackageTags>Xamarin.Forms</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Description>A simple Xamarin.Forms Radial menu without custom renderers</Description>
   </PropertyGroup>
 
   <ItemGroup>
