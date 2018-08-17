@@ -18,9 +18,11 @@ or download repo and compile it manually so you can reference it from your targe
 # Usage (iOS and Android)
 **1.- Just reference it in your View and set MenuItemsSource property:**
 ```
+//Add namespace
+         xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu;assembly=Xamarin.Forms.RadialMenu"
 
 //Create instance
-        <local:RadialMenu MenuItemsSource="{Binding MenuItems}" 
+        <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" 
                           MainMenuCloseButtonImageSource="close_circle"  
                           OuterCircleImageSource="outer_circle" 
                           MainMenuImageSource="menu_circle"  
@@ -29,7 +31,7 @@ or download repo and compile it manually so you can reference it from your targe
   ```  
     
     
-**2.- And your ViewModel code will look similar to:**
+**2.- And your ViewModel/Codebehind code will look similar to:**
 ```
 //Add controls to Menu collection
             vm = new MainMenuViewModel();
@@ -61,8 +63,11 @@ or download repo and compile it manually so you can reference it from your targe
 # Usage (UWP*)
 For UWP you need to put your image files in your application root folder and its mandatory for you to add the extension of your files, otherwise menu won't show up.Probably good idea to use **OnPlatform** for this.
 ```
+//Add namespace
+         xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu;assembly=Xamarin.Forms.RadialMenu"
+
 //Create instance
- <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" 
+          <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" 
                           MainMenuCloseButtonImageSource="close_circle.png"   
                           OuterCircleImageSource="outer_circle.png"           
                           MainMenuImageSource="menu_circle.png"              
