@@ -34,7 +34,7 @@ https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
     
 **2.- And your ViewModel code will look similar to:**
 ```
- vm = new MainMenuViewModel();
+            vm = new MainMenuViewModel();
             BindingContext = vm;
             vm.MenuItems = new ObservableCollection<RadialMenuItem>()
             {
@@ -125,6 +125,60 @@ By default it follows clockwise to animate items when showing(First North then N
 
 # How it looks
   ![Image of Yaktocat](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/emulatorImages/RadialMenu_01.PNG?raw=false)![Image of Yaktocat](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/emulatorImages/RadialMenu_02.PNG?raw=false)
+  
+  
+  # Adding Custom Content
+  Items relies on a base class called **RadialMenuItem**, which exposes a virtual method called **Draw**. By default this method is in charge of drawing each item in the position we manually set in the beginning.
+  ```
+      public virtual void Draw()
+        {
+            var itemGrid = new Grid();
+            if (Source != null)
+            {
+                itemGrid.Children.Add(new Image() { Source=this.Source});
+                this.Content = itemGrid;
+            }
+        }
+  ```
+  In case you want to add other items than Images you can!. Just create a class that inherits from **RadialMenuItem**, override **Draw()** and build your own element (**just make sure to use Labels and Images since tapped event behaves nicely this way**). After this just use it normally when creating the menu items list in your VM.
+  ```
+  public class CustomizedItem:RadialMenuItem
+    {
+        public override void Draw()
+        {
+            var itemGrid = new StackLayout(){Spacing=0};
+            if (Source != null)
+            {
+               
+                itemGrid.Children.Add(new Image(){Source=Source});
+                var label = new Label() {FontSize=11,
+                  VerticalOptions = LayoutOptions.End,TextColor=Color.White,
+                  HorizontalTextAlignment=TextAlignment.Center,
+                  Text= Title, 
+                  Margin=new Thickness(0,1,0,0)};
+                itemGrid.Children.Add(label);
+                Content = itemGrid;
+            }
+        }
+    }
+    
+    
+    vm.MenuItems = new ObservableCollection<RadialMenuItem>()
+            {
+                new CustomizedItem()
+                {
+                    Source = "menu_paint.png",
+                    WidthRequest = 38,
+                    HeightRequest = 38,
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Center,
+                    Location = Enumerations.Enumerations.RadialMenuLocation.N,Title="North"
+                }
+            };
+  ```
+  ![Image of Yaktocat](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/emulatorImages/RadialMenu_03.PNG?raw=false)
+  
+  
 # Missing Features
 - Add Nested lists to each RadialMenuItem
 - Add different animations to show radial menu and RadialMenuItems
