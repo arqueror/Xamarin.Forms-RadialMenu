@@ -140,11 +140,9 @@ By default it follows clockwise to animate items when showing(First North then N
   ![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_03.PNG?raw=false)
   
 # Adding Custom Renderers (Optional)
-Currently package supports to add a custom renderer to your android project. By the time im writting this you will have to add it manually (**i'm working on the NuGet packaging ;)**). Basically this renderer adds **Dragging** to RadialMenu.
+Currently this cusom renderer is only available for **Android (iOS and UWP coming soon)**. By the time im writting this you will have to add it manually (**i'm working on the NuGet packaging for the native renderer)**. Basically this renderer adds **Dragging** capability to your actual RadialMenu and it is completely optional for you to use it or not.
 
-Currently it is only supported in **Android**
-
-You can find the renderer here: 
+You can find the Android renderer here: 
 https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.RadialMenu.AndroidCore/DraggableViewRenderer.cs
 
 ![Alt Text](https://arqueror.blob.core.windows.net/publicfiles/RadialMenuRendererAndroid.gif)
