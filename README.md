@@ -1,10 +1,6 @@
 # Xamarin.Forms-RadialMenu
 Xamarin.Forms simple radial menu without renderers. **Android, iOS and UWP Supported**
 
-based on:
-https://github.com/alanbeech/roundfiltermenu/tree/master/Idx.RoundFilterMenu
-
-
 
 # Motivation
   - Create a reusable RadialMenu without relying on any CustomRenderer
@@ -143,13 +139,26 @@ By default it follows clockwise to animate items when showing(First North then N
   ```
   ![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_03.PNG?raw=false)
   
-  
+# Adding Custom Renderers (Optional)
+Currently package supports to add a custom renderer to your android project. By the time im writting this you will have to add it manually (**i'm working on the NuGet packaging ;)**). Basically this renderer adds **Dragging** to RadialMenu.
+
+Currently it is only supported in **Android**
+
+You can find the renderer here: 
+https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.RadialMenu.AndroidCore/DraggableViewRenderer.cs
+
+![Alt Text](https://arqueror.blob.core.windows.net/publicfiles/RadialMenuRendererAndroid.gif)
+
+
 # Missing Features
 - Add Nested lists to each RadialMenuItem
 - Add different animations to show radial menu and RadialMenuItems
+- **Draggable renderer for iOS and UWP**
+
 
 # Special Thanks
- Thanks to Alan Beech (https://github.com/alanbeech) for the base code used for this repo.
+ - Alan Beech (https://github.com/alanbeech) for the base code used for this repo.
+ - CrossGeeks (https://github.com/CrossGeeks) for the Drag renderer base code.
 <br/>
 
 **Happy coding! :sparkles: :camel: :boom:**
