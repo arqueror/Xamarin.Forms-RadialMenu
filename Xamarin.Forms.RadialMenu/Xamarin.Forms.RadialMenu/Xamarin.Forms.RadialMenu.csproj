@@ -13,6 +13,7 @@
     <PackageTags>Xamarin.Forms</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>A simple Xamarin.Forms Radial menu without custom renderers</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

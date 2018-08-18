@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" x:Name="control"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Xamarin.Forms.RadialMenu.Models"
              x:Class="Xamarin.Forms.RadialMenu.RadialMenu">
     <ContentPage.Content>
         <Grid x:Name="mainGrid">
-            <Image x:Name="OuterCircle" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=OuterCircleImageSource}"></Image>
-            <Image x:Name="InnerButtonMenu" Opacity="1" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=MainMenuImageSource}"></Image>
-            <Image x:Name="InnerButtonClose" Opacity="0" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=MainMenuCloseButtonImageSource}"></Image>
-        </Grid>
+                <local:RadialMenuItem IsDefaultButton="true"  x:Name="OuterCircle" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=OuterCircleImageSource}"></local:RadialMenuItem>
+                <local:RadialMenuItem IsDefaultButton="true" x:Name="InnerButtonMenu" Opacity="1" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=MainMenuImageSource}"></local:RadialMenuItem>
+                <local:RadialMenuItem IsDefaultButton="true" x:Name="InnerButtonClose" Opacity="0" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=MainMenuCloseButtonImageSource}"></local:RadialMenuItem>
+            </Grid>
 
     </ContentPage.Content>
 </ContentView>

@@ -7,6 +7,8 @@ namespace Xamarin.Forms.RadialMenu.Models
 {
     public class RadialMenuItem : ContentView
     {
+        //Close,Open or Layout item?
+        public bool IsDefaultButton { get; set; } = false;
         public Enumerations.Enumerations.RadialMenuLocation Location { get; set; }
         public ObservableCollection<RadialMenuItem> DetailItems { get; set; }
         public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(RadialMenuItem), default(ImageSource));
@@ -29,7 +31,7 @@ namespace Xamarin.Forms.RadialMenu.Models
             if (Source != null)
             {
                 itemGrid.Children.Add(new Image() { Source=this.Source});
-                this.Content = itemGrid;
+                Content=itemGrid;
             }
         }
 

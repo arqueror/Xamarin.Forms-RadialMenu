@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms.RadialMenu.Enumerations;
 using Xamarin.Forms;
 using Xamarin.Forms.RadialMenu.Models;
@@ -16,8 +17,9 @@ namespace Xamarin.Forms.RadialMenu
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RadialMenu : ContentView
     {
+        
         public event EventHandler<Enumerations.Enumerations.RadialMenuLocation> ItemTapped;
-
+        
         public static readonly BindableProperty OuterCircleImageSourceProperty =
             BindableProperty.Create(nameof(OuterCircleImageSource), typeof(ImageSource), typeof(RadialMenu), default(ImageSource));
         public ImageSource OuterCircleImageSource
@@ -87,7 +89,7 @@ namespace Xamarin.Forms.RadialMenu
                 }
             }
         }
-
+        public bool IsOpened { get; set; } = false;
         private bool _isAnimating = false;
         private uint _animationDelay = 300;
 
@@ -134,17 +136,6 @@ namespace Xamarin.Forms.RadialMenu
 
         }
 
-        private void HandleOptionsClicked()
-        {
-            foreach (var i in MenuItemsSource)
-            {
-                var item = i as RadialMenuItem;
-                var source = (Xamarin.Forms.FileImageSource)item.Source;
-                HandleOptionClicked(item, item.Location);
-            }
-
-        }
-
         private void HandleOptionClicked(RadialMenuItem item, Enumerations.Enumerations.RadialMenuLocation value)
         {
             
@@ -166,6 +157,7 @@ namespace Xamarin.Forms.RadialMenu
                 Command = new Command(async () =>
                 {
                     await CloseMenu();
+
                 }),
                 NumberOfTapsRequired = 1
             });
@@ -191,6 +183,7 @@ namespace Xamarin.Forms.RadialMenu
                 InnerButtonClose.IsVisible = false;
 
                 _isAnimating = false;
+                IsOpened = false;
             }
         }
 
@@ -198,33 +191,34 @@ namespace Xamarin.Forms.RadialMenu
         {
             InnerButtonMenu.GestureRecognizers.Add(new TapGestureRecognizer
             {
-                Command = new Command(async () =>
-                {
-                    if (!_isAnimating)
-                    {
-                        _isAnimating = true;
-
-                        InnerButtonClose.IsVisible = true;
-                        InnerButtonMenu.IsVisible = true;
-
-                        InnerButtonMenu.RotateTo(360, _animationDelay);
-                        InnerButtonMenu.FadeTo(0, _animationDelay);
-                        InnerButtonClose.RotateTo(360, _animationDelay);
-                        InnerButtonClose.FadeTo(1, _animationDelay);
-
-                        await OuterCircle.ScaleTo(3.3, 1000, Easing.BounceIn);
-                        await ShowButtons();
-                        InnerButtonMenu.IsVisible = false;
-
-                        _isAnimating = false;
-
-                    }
-                }),
+                Command = new Command(async () => { await OpenMenu(); }),
                 NumberOfTapsRequired = 1
             });
 
         }
 
+        public async Task OpenMenu()
+        {
+            if (!_isAnimating)
+            {
+                _isAnimating = true;
+
+                InnerButtonClose.IsVisible = true;
+                InnerButtonMenu.IsVisible = true;
+
+                InnerButtonMenu.RotateTo(360, _animationDelay);
+                InnerButtonMenu.FadeTo(0, _animationDelay);
+                InnerButtonClose.RotateTo(360, _animationDelay);
+                InnerButtonClose.FadeTo(1, _animationDelay);
+
+                await OuterCircle.ScaleTo(3.3, 1000, Easing.BounceIn);
+                await ShowButtons();
+                InnerButtonMenu.IsVisible = false;
+
+                _isAnimating = false;
+                IsOpened = true;
+            }
+        }
         private async Task HideButtons(uint speed=25)
         {
             if (MenuItemsSource == null || MenuItemsSource.Count <= 0) return;
@@ -264,6 +258,9 @@ namespace Xamarin.Forms.RadialMenu
             if (notifyCollection != null)
             {
                 HideButtons(0);
+                            OuterCircle.Draw();
+                    InnerButtonMenu.Draw();
+                    InnerButtonClose.Draw();
                 foreach (RadialMenuItem newItem in MenuItemsSource)
                 {
                     OrganizeItem(newItem);
@@ -303,5 +300,101 @@ namespace Xamarin.Forms.RadialMenu
             }
 
         }
+        #region DraggableMembers
+        public event EventHandler DragStart = delegate { };
+        public event EventHandler DragEnd = delegate { };
+
+        public static readonly BindableProperty DragDirectionProperty = BindableProperty.Create(
+            propertyName: "DragDirection",
+            returnType: typeof(DragDirectionType),
+            declaringType: typeof(RadialMenu),
+            defaultValue: DragDirectionType.All,
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public enum DragMod
+        {
+            Touch,
+            LongPress
+        }
+        public enum DragDirectionType
+        {
+            All,
+            Vertical,
+            Horizontal
+        }
+        public DragDirectionType DragDirection
+        {
+            get { return (DragDirectionType)GetValue(DragDirectionProperty); }
+            set { SetValue(DragDirectionProperty, value); }
+        }
+
+
+        public static readonly BindableProperty DragModeProperty = BindableProperty.Create(
+           propertyName: "DragMode",
+           returnType: typeof(DragMod),
+           declaringType: typeof(RadialMenu),
+           defaultValue: DragMod.LongPress,
+           defaultBindingMode: BindingMode.TwoWay);
+
+        public DragMod DragMode
+        {
+            get { return (DragMod)GetValue(DragModeProperty); }
+            set { SetValue(DragModeProperty, value); }
+        }
+
+        public static readonly BindableProperty IsDraggingProperty = BindableProperty.Create(
+          propertyName: "IsDragging",
+          returnType: typeof(bool),
+          declaringType: typeof(RadialMenu),
+          defaultValue: false,
+          defaultBindingMode: BindingMode.TwoWay);
+
+        public bool IsDragging
+        {
+            get { return (bool)GetValue(IsDraggingProperty); }
+            set { SetValue(IsDraggingProperty, value); }
+        }
+
+        public static readonly BindableProperty RestorePositionCommandProperty = BindableProperty.Create(nameof(RestorePositionCommand), typeof(ICommand), typeof(RadialMenu), default(ICommand), BindingMode.TwoWay, null, OnRestorePositionCommandPropertyChanged);
+
+        static void OnRestorePositionCommandPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var source = bindable as RadialMenu;
+            if (source == null)
+            {
+                return;
+            }
+            source.OnRestorePositionCommandChanged();
+        }
+
+        private void OnRestorePositionCommandChanged()
+        {
+            OnPropertyChanged("RestorePositionCommand");
+        }
+
+        public ICommand RestorePositionCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(RestorePositionCommandProperty);
+            }
+            set
+            {
+                SetValue(RestorePositionCommandProperty, value);
+            }
+        }
+
+        public void DragStarted()
+        {
+            DragStart(this, default(EventArgs));
+            IsDragging = true;
+        }
+
+        public void DragEnded()
+        {
+            IsDragging = false;
+            DragEnd(this, default(EventArgs));
+        }
+        #endregion
     }
 }

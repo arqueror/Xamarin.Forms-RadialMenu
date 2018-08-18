@@ -9,7 +9,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        <local:RadialMenu MenuItemsSource="{Binding MenuItems}" 
+        <local:RadialMenu MenuItemsSource="{Binding MenuItems}"  Grid.Row="0"
                           x:Name="Menu" HorizontalOptions="Center" 
                           VerticalOptions="Center" >
             <local:RadialMenu.MainMenuCloseButtonImageSource>

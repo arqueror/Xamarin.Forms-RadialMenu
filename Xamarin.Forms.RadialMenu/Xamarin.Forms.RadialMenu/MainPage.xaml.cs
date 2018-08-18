@@ -102,7 +102,7 @@ namespace Xamarin.Forms.RadialMenu
                 itemGrid.Children.Add(new Image(){Source=Source});
                 var label = new Label() {FontSize=11,VerticalOptions = LayoutOptions.End,TextColor=Color.White,HorizontalTextAlignment=TextAlignment.Center,Text= Title, Margin=new Thickness(0,1,0,0)};
                 itemGrid.Children.Add(label);
-                Content = itemGrid;
+                Content=itemGrid;
             }
         }
     }
