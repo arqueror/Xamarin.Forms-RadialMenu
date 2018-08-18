@@ -15,7 +15,7 @@ Install NuGet package: https://www.nuget.org/packages/Xamarin.Forms.RadialMenu/
 or download repo and compile it manually so you can reference it from your target project :D
 
 
-# Usage (iOS and Android)
+# Usage
 **1.- Just reference it in your View and set MenuItemsSource property:**
 ```
 //Add namespace
@@ -23,9 +23,9 @@ or download repo and compile it manually so you can reference it from your targe
 
 //Create instance
         <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" 
-                          MainMenuCloseButtonImageSource="close_circle"  
-                          OuterCircleImageSource="outer_circle" 
-                          MainMenuImageSource="menu_circle"  
+                          MainMenuCloseButtonImageSource="close_circle.png"  
+                          OuterCircleImageSource="outer_circle.png" 
+                          MainMenuImageSource="menu_circle.png"  
                           x:Name="Menu" HorizontalOptions="Center" 
                           VerticalOptions="Center" ></local:FilterMenu>
   ```  
@@ -40,7 +40,7 @@ or download repo and compile it manually so you can reference it from your targe
             {
                 new RadialMenuItem()
                 {
-                    Source = "menu_paint",
+                    Source = "menu_paint.png",
                     WidthRequest = 38,
                     HeightRequest = 38,
                     VerticalOptions = LayoutOptions.Center,
@@ -50,7 +50,7 @@ or download repo and compile it manually so you can reference it from your targe
             };
             vm.MenuItems.Add(new RadialMenuItem()
             {
-                Source = "menu_lorry",
+                Source = "menu_lorry.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
@@ -58,50 +58,6 @@ or download repo and compile it manually so you can reference it from your targe
                 Location = Enumerations.Enumerations.RadialMenuLocation.Ne
             });
  ........
-```
-
-# Usage (UWP*)
-For UWP you need to put your image files in your application root folder and its mandatory for you to add the extension of your files, otherwise menu won't show up.Probably good idea to use **OnPlatform** for this.
-```
-//Add namespace
-         xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu;assembly=Xamarin.Forms.RadialMenu"
-
-//Create instance
-          <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" 
-                          MainMenuCloseButtonImageSource="close_circle.png"   
-                          OuterCircleImageSource="outer_circle.png"           
-                          MainMenuImageSource="menu_circle.png"              
-                          x:Name="Menu" HorizontalOptions="Center" 
-                          VerticalOptions="Center" ></radial:RadialMenu>
-
-
-//Add controls to Menu collection with file extension
-vm = new MainMenuViewModel();
-            BindingContext = vm;
-            var custItem =
-            vm.MenuItems = new ObservableCollection<RadialMenuItem>()
-            {
-                new RadialMenuItem()
-                {
-                    Source = "menu_paint.png",
-                    WidthRequest = 38,
-                    HeightRequest = 38,
-                    VerticalOptions = LayoutOptions.Center,
-                    HorizontalOptions = LayoutOptions.Center,
-                    Location = Enumerations.RadialMenuLocation.N,Title="North"
-                }
-            };
-            vm.MenuItems.Add(new RadialMenuItem()
-            {
-                Source = "menu_lorry.png",
-                WidthRequest = 38,
-                HeightRequest = 38,
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.RadialMenuLocation.Ne
-            });
-.........
-
 ```
 
 ## Events
@@ -133,8 +89,7 @@ By default it follows clockwise to animate items when showing(First North then N
  ![Image of Yaktocat](https://image.shutterstock.com/image-vector/wind-rose-cardinal-points-star-260nw-1011439111.jpg)
 
 # How it looks
-![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_01.PNG?raw=false)
-![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_02.PNG?raw=false)
+![Alt Text](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu.gif)
   
   
   # Adding Custom Content
