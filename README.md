@@ -32,8 +32,7 @@ or download repo and compile it manually so you can reference it from your targe
                           MainMenuCloseButtonImageSource="close_circle.png"  
                           OuterCircleImageSource="outer_circle.png" 
                           MainMenuImageSource="menu_circle.png"  
-                          x:Name="Menu" HorizontalOptions="Center" 
-                          VerticalOptions="Center" />
+                          x:Name="Menu" />
               <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
 
 ........
