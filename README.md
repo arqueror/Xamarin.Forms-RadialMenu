@@ -15,8 +15,9 @@ or download repo and compile it manually so you can reference it from your targe
 **1.- Just reference it in your View and set MenuItemsSource property:**
 ```
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu"     //1. Reference xaml namespace****
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"   
+             <!-- REFERENCE XAML NAMESPACE-->
+             xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu;assembly=Xamarin.Forms.RadialMenu"   
              x:Class="Xamarin.Forms.RadialMenu.MainPage">
 
     <Grid>
@@ -29,12 +30,14 @@ or download repo and compile it manually so you can reference it from your targe
          will be resetted to original position everytime a click happens on iOS-->
          
               <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0"
-                          MainMenuCloseButtonImageSource="close_circle.png"  
-                          OuterCircleImageSource="outer_circle.png" 
-                          MainMenuImageSource="menu_circle.png"  
+                          MainMenuCloseButtonImageSource="close_circle.png"    <!-- CLOSE IMAGE-->
+                          OuterCircleImageSource="outer_circle.png"             <!-- OUTER CIRCLE IMAGE-->
+                          MainMenuImageSource="menu_circle.png"                 <!-- MAIN MENU IMAGE-->
                           x:Name="Menu" />
               <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
 
+        <!--ON ANDROID MAKE SURE IMAGES EXISTS IN RESOURCES FOLDER BEFORE RUNNING APP.OTHERWISE IT MAY CRASH-->
+         
 ........
  
   ```  
@@ -114,7 +117,7 @@ By default it follows clockwise to animate items when showing(First North then N
             }
         }
   ```
-  In case you want to add other items than Images you can!. Just create a class that inherits from **RadialMenuItem**, override **Draw()** and build your own element (**just make sure to use Labels and Images since tapped event behaves nicely this way**). After this just use it normally when creating the menu items list in your VM.
+  In case you want to add other items than JUST Images you can!. Just create a class that inherits from **RadialMenuItem**, override **Draw()** and build your own element (**just make sure to use Labels and Images since tapped event behaves nicely this way**). After this just use it normally when creating the menu items list in your VM.
   ```
   public class CustomizedItem:RadialMenuItem
     {
@@ -153,7 +156,7 @@ By default it follows clockwise to animate items when showing(First North then N
   ![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_03.PNG?raw=false)
   
 # Adding Custom Renderers (Optional)
-Currently custom rendererers are only available for **Android and iOS (UWP coming soon)** and they adds **Dragging** capability to your RadialMenu and it is completely optional for you to use it or not.
+Currently custom rendererers are only available for **Android and iOS (UWP coming soon)** and they add **Dragging** capability to your RadialMenu and it is completely optional for you to use it or not.
 
 You can find the **Android** renderer here: 
 - https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.RadialMenu.AndroidCore/DraggableViewRenderer.cs
