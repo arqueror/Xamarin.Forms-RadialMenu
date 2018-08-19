@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms.RadialMenu.iOSCore;
 
 namespace Xamarin.Forms.RadialMenu.iOS
 {
@@ -24,7 +25,7 @@ namespace Xamarin.Forms.RadialMenu.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-
+            Abstractions.Init();
             return base.FinishedLaunching(app, options);
         }
     }

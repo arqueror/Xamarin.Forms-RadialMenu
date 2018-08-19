@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Xamarin.Forms.RadialMenu"
@@ -10,8 +10,7 @@
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <local:RadialMenu MenuItemsSource="{Binding MenuItems}"  Grid.Row="0"
-                          x:Name="Menu" HorizontalOptions="Center" 
-                          VerticalOptions="Center" >
+                          x:Name="Menu"  >
             <local:RadialMenu.MainMenuCloseButtonImageSource>
                 <OnPlatform x:TypeArguments="ImageSource">
                     <On Platform="iOS">

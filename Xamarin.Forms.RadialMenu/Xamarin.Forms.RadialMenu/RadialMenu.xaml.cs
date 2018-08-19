@@ -89,7 +89,19 @@ namespace Xamarin.Forms.RadialMenu
                 }
             }
         }
-        public bool IsOpened { get; set; } = false;
+        public static readonly BindableProperty IsOpenedProperty =
+            BindableProperty.Create(nameof(IsOpened), typeof(bool), typeof(RadialMenu), default(bool));
+        public bool IsOpened
+        {
+            get
+            {
+                return (bool)GetValue(IsOpenedProperty);
+            }
+            set
+            {
+                SetValue(IsOpenedProperty, value);
+            }
+        }
         private bool _isAnimating = false;
         private uint _animationDelay = 300;
 

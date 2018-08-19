@@ -152,8 +152,12 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Forms.RadialMenu\Xamarin.Forms.RadialMenu.csproj">
-      <Project>{7FF0F928-C366-4F1C-AB67-2DCAD9F33792}</Project>
+      <Project>{3C3FEE3B-45C2-4C7F-B542-E902B6FE735F}</Project>
       <Name>Xamarin.Forms.RadialMenu</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Xamarin.Forms.RadialMenu.iOSCore\Xamarin.Forms.RadialMenu.iOSCore.csproj">
+      <Project>{BEF52819-F2C9-4C8D-BF9D-54E46481D897}</Project>
+      <Name>Xamarin.Forms.RadialMenu.iOSCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

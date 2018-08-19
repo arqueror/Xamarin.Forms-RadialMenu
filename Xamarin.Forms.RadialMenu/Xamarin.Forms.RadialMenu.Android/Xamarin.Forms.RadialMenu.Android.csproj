@@ -125,7 +125,7 @@
       <Name>Xamarin.Forms.RadialMenu.AndroidCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Xamarin.Forms.RadialMenu\Xamarin.Forms.RadialMenu.csproj">
-      <Project>{7FF0F928-C366-4F1C-AB67-2DCAD9F33792}</Project>
+      <Project>{3C3FEE3B-45C2-4C7F-B542-E902B6FE735F}</Project>
       <Name>Xamarin.Forms.RadialMenu</Name>
     </ProjectReference>
   </ItemGroup>
