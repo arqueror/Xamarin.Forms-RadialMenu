@@ -145,6 +145,9 @@ Currently this cusom renderer is only available for **Android (iOS and UWP comin
 You can find the Android renderer here: 
 https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.RadialMenu.AndroidCore/DraggableViewRenderer.cs
 
+**Call Abstractions.Init()** on each platform
+
+
 ![Alt Text](https://arqueror.blob.core.windows.net/publicfiles/RadialMenuRendererAndroid.gif)
 
 
