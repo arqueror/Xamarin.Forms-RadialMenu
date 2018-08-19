@@ -7,23 +7,37 @@ Xamarin.Forms simple radial menu without renderers. **Android, iOS and UWP Suppo
  
  
 # Installation
-Install NuGet package: https://www.nuget.org/packages/Xamarin.Forms.RadialMenu/
+Install NuGet package: **Xamarin.Forms.RadialMenu**
 or download repo and compile it manually so you can reference it from your target project :D
 
 
 # Usage
 **1.- Just reference it in your View and set MenuItemsSource property:**
 ```
-//Add namespace
-         xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu;assembly=Xamarin.Forms.RadialMenu"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu"     //1. Reference xaml namespace****
+             x:Class="Xamarin.Forms.RadialMenu.MainPage">
 
-//Create instance
-        <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+         <!--DO NOT SET HORIZONTAL/VERTICAL OPTIONS ON YOUR RadialMenu, OTHERWISE RadialMenu position 
+         will be resetted to original position everytime a click happens on iOS-->
+         
+              <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0"
                           MainMenuCloseButtonImageSource="close_circle.png"  
                           OuterCircleImageSource="outer_circle.png" 
                           MainMenuImageSource="menu_circle.png"  
                           x:Name="Menu" HorizontalOptions="Center" 
-                          VerticalOptions="Center" ></local:FilterMenu>
+                          VerticalOptions="Center" ></radial:FilterMenu>
+               <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
+
+........
+ 
   ```  
     
     
@@ -60,7 +74,7 @@ or download repo and compile it manually so you can reference it from your targe
 ```
   Menu.ItemTapped += async (sender, location) =>
             {
-                  var locationTapped = nameof(location);
+                  var textLocation = location.ToString();
             };
 
 ```
@@ -140,10 +154,19 @@ By default it follows clockwise to animate items when showing(First North then N
   ![Image of Yaktocat](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu_03.PNG?raw=false)
   
 # Adding Custom Renderers (Optional)
-Currently this cusom renderer is only available for **Android (iOS and UWP coming soon)**. By the time im writting this you will have to add it manually (**i'm working on the NuGet packaging for the native renderer)**. Basically this renderer adds **Dragging** capability to your actual RadialMenu and it is completely optional for you to use it or not.
+Currently custom rendererers are only available for **Android and iOS (UWP coming soon)** and they adds **Dragging** capability to your RadialMenu and it is completely optional for you to use it or not.
 
-You can find the Android renderer here: 
-https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.RadialMenu.AndroidCore/DraggableViewRenderer.cs
+You can find the **Android** renderer here: 
+- https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.RadialMenu.AndroidCore/DraggableViewRenderer.cs
+ OR
+- Xamarin.Forms.RadialMenu.AndroidCore on Nuget
+
+
+You can find the **iOS** renderer here:
+- https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.RadialMenu.iOSCore/DraggableViewRenderer.cs
+OR
+- Xamarin.Forms.RadialMenu.iOSCore on Nuget
+
 
 **Call Abstractions.Init()** on each platform
 
@@ -154,7 +177,7 @@ https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/Xamarin.Forms.R
 # Missing Features
 - Add Nested lists to each RadialMenuItem
 - Add different animations to show radial menu and RadialMenuItems
-- **Draggable renderer for iOS and UWP**
+- **Draggable renderer for UWP**
 
 
 # Special Thanks
