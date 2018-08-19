@@ -20,16 +20,18 @@ or download repo and compile it manually so you can reference it from your targe
              xmlns:radial="clr-namespace:Xamarin.Forms.RadialMenu;assembly=Xamarin.Forms.RadialMenu"   
              x:Class="Xamarin.Forms.RadialMenu.MainPage">
 
-    <Grid>
+    <Grid>   <!-- IT IS RECOMMENDED TO USE WITHIN A GRID SO IT TAKES ADVANTAGE OF GRID OVERLAPPING-->
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         
-         <!--DO NOT SET HORIZONTAL/VERTICAL OPTIONS ON YOUR RadialMenu, OTHERWISE RadialMenu position 
+         <!--HORIZONTAL/VERTICAL OPTIONS ON YOUR RadialMenu must have Fill value, OTHERWISE RadialMenu position 
          will be resetted to original position everytime a click happens on iOS-->
          
               <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0"
+                          HorizontalOptions="Fill" 
+                          VerticalOptions="Fill"
                           MainMenuCloseButtonImageSource="close_circle.png"    <!-- CLOSE IMAGE-->
                           OuterCircleImageSource="outer_circle.png"             <!-- OUTER CIRCLE IMAGE-->
                           MainMenuImageSource="menu_circle.png"                 <!-- MAIN MENU IMAGE-->
