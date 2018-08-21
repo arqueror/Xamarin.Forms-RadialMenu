@@ -26,17 +26,33 @@ or download repo and compile it manually so you can reference it from your targe
             <RowDefinition></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-        
-         <!--HORIZONTAL/VERTICAL OPTIONS ON YOUR RadialMenu must have Fill value, OTHERWISE RadialMenu position 
-         will be resetted to original position everytime a click happens on iOS-->
-         
+          
               <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0"
                           HorizontalOptions="Fill" 
                           VerticalOptions="Fill"
                           MainMenuCloseButtonImageSource="close_circle.png"    <!-- CLOSE IMAGE-->
                           OuterCircleImageSource="outer_circle.png"             <!-- OUTER CIRCLE IMAGE-->
                           MainMenuImageSource="menu_circle.png"                 <!-- MAIN MENU IMAGE-->
-                          x:Name="Menu" />
+                          x:Name="Menu">
+                          
+                           <!--HORIZONTAL/VERTICAL OPTIONS ARE DIFFERENT FOR EACH PLATFORM -->
+                            <!--For Android use Center for Horizontal and Vertical -->
+                            <!--For iOS use Fill for Horizontal and Vertical -->
+                            <!--THIS ENSURES CLICK EVENTS PROPAGATES ONLY IN MENU AND NOT THROUGH ENTIRE GRID -->
+                            
+                          <radial:RadialMenu.HorizontalOptions>
+                              <OnPlatform x:TypeArguments="LayoutOptions">    
+                                  <On Platform="Android" Value="Center"/>
+                                  <On Platform="iOS" Value="Fill"/>
+                              </OnPlatform>
+                          </radial:RadialMenu.HorizontalOptions>
+                           <radial:RadialMenu.VerticalOptions>
+                               <OnPlatform x:TypeArguments="LayoutOptions">    
+                                  <On Platform="Android" Value="Center"/>
+                                  <On Platform="iOS" Value="Fill"/>
+                              </OnPlatform>
+                          </radial:RadialMenu.VerticalOptions>
+                </radial:RadialMenu>
               <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
 
         <!--ON ANDROID MAKE SURE IMAGES EXISTS IN RESOURCES FOLDER BEFORE RUNNING APP.OTHERWISE IT MAY CRASH-->
