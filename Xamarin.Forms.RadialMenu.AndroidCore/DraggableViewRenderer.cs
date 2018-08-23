@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using System.ComponentModel;
 using Android.Content;
 using Android.Renderscripts;
+using Android.Util;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.RadialMenu;
 using Xamarin.Forms.RadialMenu.AndroidCore;
@@ -23,6 +24,8 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
         bool firstTime = true;
         bool touchedDown = false;
         bool hasmoved = false;
+        private DisplayMetrics displayMetrics;
+        int sH , sW;
         public DraggableMenuRenderer(Context context) : base(context)
         {
 
@@ -38,19 +41,22 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
             }
             if (e.NewElement != null)
             {
+                displayMetrics = Context.Resources.DisplayMetrics;
+                sH = displayMetrics.HeightPixels;
+                sW = displayMetrics.WidthPixels;
                 LongClick += HandleLongClick;
                 var dragView = Element as RadialMenu;
                 Click += DraggableMenuRenderer_Click;
 
-                //dragView.RestorePositionCommand = new Command(() =>
-                //{
-                //    if (!firstTime)
-                //    {
-                //        SetX(originalX);
-                //        SetY(originalY);
-                //    }
+                dragView.RestorePositionCommand = new Command(() =>
+                {
+                    if (!firstTime)
+                    {
+                        SetX(originalX);
+                        SetY(originalY);
+                    }
 
-                //});
+                });
             }
 
         }
@@ -88,9 +94,11 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
 
         public override bool OnTouchEvent(MotionEvent e)
         {
+           
             float x = e.RawX;
             float y = e.RawY;
             var dragView = Element as RadialMenu;
+
             //if (!dragView.IsOpened)
             //{
             switch (e.Action)
@@ -118,18 +126,25 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
 
                     break;
                 case MotionEventActions.Move:
+                    float newX = x - dX;
+                    var newY = y - dY;
                     if (touchedDown)
                     {
                         if (dragView.DragDirection == RadialMenu.DragDirectionType.All ||
                             dragView.DragDirection == RadialMenu.DragDirectionType.Horizontal)
                         {
-                            SetX(x - dX);
+                            if ((newX <= 0 || newX >= sW - Width))
+                                break;
+
+                            SetX(newX);
                         }
 
                         if (dragView.DragDirection == RadialMenu.DragDirectionType.All ||
                             dragView.DragDirection == RadialMenu.DragDirectionType.Vertical)
                         {
-                            SetY(y - dY);
+                            if ( (newY <= 0 || newY >= sH - Height))
+                                break;
+                            SetY(newY);
                         }
                         hasmoved = true;
                     }
