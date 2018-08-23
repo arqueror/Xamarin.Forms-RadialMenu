@@ -7,6 +7,7 @@ using CoreGraphics;
 using Xamarin.Forms.RadialMenu;
 using Xamarin.Forms.RadialMenu.iOSCore;
 using static Xamarin.Forms.RadialMenu.RadialMenu;
+using System;
 
 [assembly: ExportRenderer(typeof(RadialMenu), typeof(DraggableViewRenderer))]
 namespace Xamarin.Forms.RadialMenu.iOSCore
@@ -21,6 +22,8 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
         CGPoint lastLocation;
         CGPoint originalPosition;
         UIGestureRecognizer.Token panGestureToken;
+        CGRect displayMetrics;
+        nfloat sH, sW;
         bool isFixingfMenuPosition = false;
         void DetectPan()
         {
@@ -50,8 +53,8 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
                 {
                     currentCenterY = lastLocation.Y + translation.Y;
                 }
-
-                Center = new CGPoint(currentCenterX, currentCenterY);
+                if (((currentCenterX >= 30 && currentCenterX <= sW-30))&&((currentCenterY >= 30 && currentCenterY <= sH - 30)))
+                    Center = new CGPoint(currentCenterX, currentCenterY);
               
                 if (panGesture.State == UIGestureRecognizerState.Ended)
                 {
@@ -75,6 +78,10 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
             }
             if (e.NewElement != null)
             {
+                displayMetrics = UIScreen.MainScreen.Bounds;
+                sH = displayMetrics.Height;
+                sW = displayMetrics.Width;
+
                 var dragView = Element as RadialMenu;
                 panGesture = new UIPanGestureRecognizer();
                 panGestureToken = panGesture.AddTarget(DetectPan);
