@@ -86,7 +86,7 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
                 panGesture = new UIPanGestureRecognizer();
                 panGestureToken = panGesture.AddTarget(DetectPan);
                 AddGestureRecognizer(panGesture);
-
+                
 
                 dragView.RestorePositionCommand = new Command(() =>
                 {
@@ -103,6 +103,72 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var dragView = Element as RadialMenu;
+            if (e.PropertyName == "IsOpened")
+            {
+                if (dragView.IsOpened)
+                {
+                    CGPoint translation = panGesture.TranslationInView(Superview);
+                    var currentCenterX = Center.X;
+                    var currentCenterY = Center.Y;
+                    int axisAdditionX = 100;
+                    int axisAdditionY = 125;
+                    //SMART CONTAINMENT LOGIC
+                    //Is on the left side?
+                    if (currentCenterX <= axisAdditionX)
+                    {
+                        currentCenterX += (axisAdditionX - currentCenterX);
+                        //Upper Y axis
+                        if (currentCenterY <= axisAdditionY)
+                        {
+                            currentCenterY += (axisAdditionY - currentCenterY);
+                        }
+                        //Bottom Y Axis
+                        if ((currentCenterY+axisAdditionY) >= sH)
+                        {
+                            currentCenterY = (sH- axisAdditionY);
+                        }
+                       
+                        Center = new CGPoint(currentCenterX, currentCenterY);
+                    }
+
+                    //Left X is good but Y top is not
+                    if (currentCenterY <= axisAdditionY)
+                    {
+                        currentCenterY += (axisAdditionY - currentCenterY);
+                        if (currentCenterX <= axisAdditionX)
+                        {
+                            currentCenterX += (axisAdditionX - currentCenterX);
+                        }
+                        Center = new CGPoint(currentCenterX, currentCenterY);
+                    }
+
+                    //Left X is good but Y bottom is not
+                    if ((currentCenterY + axisAdditionY) >= sH)
+                    {
+                        currentCenterY = (sH - axisAdditionY);
+                        Center = new CGPoint(currentCenterX, currentCenterY);
+                    }
+
+                    //Is on the right side?
+                    if ((currentCenterX + axisAdditionX) >= sW)
+                    {
+                        currentCenterX = (sW - axisAdditionX);
+
+                        //Upper Y axis
+                        if (currentCenterY <= axisAdditionY)
+                        {
+                            currentCenterY += (axisAdditionY - currentCenterY);
+                        }
+                        //Bottom Y Axis
+                        if ((currentCenterY + axisAdditionY) >= sH)
+                        {
+                            currentCenterY = (sH - axisAdditionY);
+                        }
+
+                        Center = new CGPoint(currentCenterX, currentCenterY);
+                    }
+                }
+            }
             base.OnElementPropertyChanged(sender, e);
 
         }

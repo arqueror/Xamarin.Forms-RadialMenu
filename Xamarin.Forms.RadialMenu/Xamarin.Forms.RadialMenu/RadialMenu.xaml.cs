@@ -155,6 +155,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 Command = new Command(() =>
                 {
+                    IsOpened = false;
                     ItemTapped?.Invoke(this, value);
                     CloseMenu();
                 }),
@@ -168,6 +169,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 Command = new Command(async () =>
                 {
+                    IsOpened = false;
                     await CloseMenu();
 
                 }),
@@ -195,7 +197,7 @@ namespace Xamarin.Forms.RadialMenu
                 InnerButtonClose.IsVisible = false;
 
                 _isAnimating = false;
-                IsOpened = false;
+
             }
         }
 
@@ -203,7 +205,10 @@ namespace Xamarin.Forms.RadialMenu
         {
             InnerButtonMenu.GestureRecognizers.Add(new TapGestureRecognizer
             {
-                Command = new Command(async () => { await OpenMenu(); }),
+                Command = new Command(async () => {
+                    IsOpened = true;
+                    await OpenMenu(); 
+                }),
                 NumberOfTapsRequired = 1
             });
 
@@ -228,7 +233,7 @@ namespace Xamarin.Forms.RadialMenu
                 InnerButtonMenu.IsVisible = false;
 
                 _isAnimating = false;
-                IsOpened = true;
+               
             }
         }
         private async Task HideButtons(uint speed=25)
