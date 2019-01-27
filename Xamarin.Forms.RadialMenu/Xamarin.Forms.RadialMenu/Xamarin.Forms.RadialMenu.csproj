@@ -14,10 +14,9 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Description>A simple Xamarin.Forms Radial menu without custom renderers</Description>
     <Version>1.0.1</Version>
-    <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.0.1.2</PackageVersion>
+    <PackageVersion>1.0.1.5</PackageVersion>
     <Owners>Ricardo Vasquez Sierra</Owners>
-    <PackageReleaseNotes>Added support for Android Drag renderer</PackageReleaseNotes>
+    <PackageReleaseNotes>Added support for Smart Boundaries</PackageReleaseNotes>
     <Summary>Simple Xamarin.Forms RadialMenu</Summary>
     <Title>Xamarin.Forms.RadialMenu</Title>
     <PackageId>Xamarin.Forms.RadialMenu</PackageId>
