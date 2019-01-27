@@ -167,6 +167,7 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
 
                         Center = new CGPoint(currentCenterX, currentCenterY);
                     }
+                    lastLocation = Center;
                 }
             }
             base.OnElementPropertyChanged(sender, e);
