@@ -25,6 +25,21 @@ namespace Xamarin.Forms.RadialMenu.Models
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
+
+        public static readonly BindableProperty IsShadowVisibleProperty =
+         BindableProperty.Create(nameof(IsShadowVisible), typeof(bool), typeof(RadialMenuItem), false);
+        public bool IsShadowVisible
+        {
+            get
+            {
+                return (bool)GetValue(IsShadowVisibleProperty);
+            }
+             set
+            {
+                SetValue(IsShadowVisibleProperty, value);
+            }
+        }
+
         public virtual void Draw()
         {
             var itemGrid = new Grid();

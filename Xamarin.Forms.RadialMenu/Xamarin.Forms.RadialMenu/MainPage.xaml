@@ -7,7 +7,7 @@
             <RowDefinition Height="40">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <local:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0" x:Name="Menu">
+        <local:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0" x:Name="Menu" IsShadowVisible="True">
             <local:RadialMenu.HorizontalOptions>
                 <OnPlatform x:TypeArguments="LayoutOptions">
                     <On Platform="Android" Value="Center" />

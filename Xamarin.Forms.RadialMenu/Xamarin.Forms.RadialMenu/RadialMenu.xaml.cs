@@ -17,9 +17,23 @@ namespace Xamarin.Forms.RadialMenu
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RadialMenu : ContentView
     {
-        
+
         public event EventHandler<Enumerations.Enumerations.RadialMenuLocation> ItemTapped;
-        
+
+        public static readonly BindableProperty IsShadowVisibleProperty =
+             BindableProperty.Create(nameof(IsShadowVisible), typeof(bool), typeof(RadialMenu), false);
+        public bool IsShadowVisible
+        {
+            get
+            {
+                return (bool)GetValue(IsShadowVisibleProperty);
+            }
+            set
+            {
+                SetValue(IsShadowVisibleProperty, value);
+            }
+        }
+
         public static readonly BindableProperty OuterCircleImageSourceProperty =
             BindableProperty.Create(nameof(OuterCircleImageSource), typeof(ImageSource), typeof(RadialMenu), default(ImageSource));
         public ImageSource OuterCircleImageSource
@@ -28,7 +42,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 return (ImageSource)GetValue(OuterCircleImageSourceProperty);
             }
-            set
+            private set
             {
                 SetValue(OuterCircleImageSourceProperty, value);
             }

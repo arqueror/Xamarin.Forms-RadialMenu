@@ -80,6 +80,7 @@
     <Compile Include="Abstractions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DraggableViewRenderer.cs" />
+    <Compile Include="RadialMenuItemRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Forms.RadialMenu\Xamarin.Forms.RadialMenu\Xamarin.Forms.RadialMenu.csproj">
