@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/shadow9" android:top="-1.5dp" android:width="66.5dp" android:height="65.5dp" android:layout_gravity="center"/>
+    <item android:drawable="@drawable/shadow9" android:top="-1.5dp" android:width="66.1dp" android:height="65.5dp" android:layout_gravity="center"/>
 </layer-list> 
