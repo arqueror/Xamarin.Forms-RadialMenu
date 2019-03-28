@@ -4,6 +4,7 @@ using Android.Views;
 using Xamarin.Forms;
 using System.ComponentModel;
 using Android.Content;
+using Android.OS;
 using Android.Renderscripts;
 using Android.Util;
 using Xamarin.Forms.Platform.Android;
@@ -46,7 +47,12 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
 
                 this.SetBackgroundResource(Resource.Drawable.rounded_border);
             }
-            this.Elevation = 2f;
+            if (global::Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            {
+                //Shadow is working only for API Level >=21 since it relies on Elevation property
+                this.Elevation = 2f;
+            }
+            
         }
 
 

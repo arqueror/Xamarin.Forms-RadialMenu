@@ -26,6 +26,8 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
         bool hasmoved = false;
         private DisplayMetrics displayMetrics;
         int sH , sW;
+        int axisAdditionX = 140;
+        int axisAdditionY = 140;
         public DraggableMenuRenderer(Context context) : base(context)
         {
 
@@ -44,6 +46,32 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
                 displayMetrics = Context.Resources.DisplayMetrics;
                 sH = displayMetrics.HeightPixels;
                 sW = displayMetrics.WidthPixels;
+                //For larger DPI, double value for containment logic so it can adjust accordingly to screen real size
+                if (displayMetrics.Density >= 4.0)
+                {
+                    //"xxxhdpi";
+                    axisAdditionX = 280;
+                    axisAdditionY = 280;
+                }
+                else if (displayMetrics.Density >= 3.0 && displayMetrics.Density < 4.0)
+                {
+                    //xxhdpi
+                    axisAdditionX = 280;
+                    axisAdditionY = 280;
+                }
+                else if (displayMetrics.Density >= 2.0)
+                {
+                    //xhdpi
+                }
+                else if (displayMetrics.Density >= 1.5 && displayMetrics.Density < 2.0)
+                {
+                    //hdpi
+                }
+                else if (displayMetrics.Density >= 1.0 && displayMetrics.Density < 1.5)
+                {
+                    //mdpi
+                }
+
                 LongClick += HandleLongClick;
                 var dragView = Element as RadialMenu;
                 Click += DraggableMenuRenderer_Click;
@@ -67,8 +95,7 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
             if (!dragView.IsOpened)
             {
                 dragView.IsOpened = true;
-                int axisAdditionX = 140;
-                int axisAdditionY = 140;
+
                 float currentCenterX = this.GetX();
                 float currentCenterY = this.GetY();
 
