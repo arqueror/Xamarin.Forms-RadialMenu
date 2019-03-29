@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\close_circle.png" />
+    <BundleResource Include="Resources\back_circle.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
