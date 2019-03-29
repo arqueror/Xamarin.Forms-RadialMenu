@@ -13,8 +13,15 @@
                           MainMenuImageSource="menu_circle.png" 
                           MenuItemsSource="{Binding MenuItems}" 
                           Grid.Row="0" x:Name="Menu" 
-                          CloseMenuWhenChildTapped="true"
+                          CloseMenuWhenChildTapped="false"
+                          ChildGrowAnimationDuration="400"
+                          ChildShrinkAnimationDuration="400"
+                          MenuOpenAnimationDuration="800"
+                          MenuCloseAnimationDuration="800"
                           IsShadowVisible="True">
+            <local:RadialMenu.ChildShrinkEasing>
+               
+            </local:RadialMenu.ChildShrinkEasing>
             <local:RadialMenu.HorizontalOptions>
                 <OnPlatform x:TypeArguments="LayoutOptions">
                     <On Platform="Android" Value="Center" />

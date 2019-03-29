@@ -23,6 +23,138 @@ namespace Xamarin.Forms.RadialMenu
         public event EventHandler<ChildItemTapped> ChildItemTapped;
         private static RadialMenuItem ParentInBackgroundItem { get; set; }
 
+        /// <summary>
+        /// Child 'grow' animation duration in milliseconds .Default value is 600
+        /// </summary>
+        public static readonly BindableProperty ChildGrowAnimationDurationProperty =
+BindableProperty.Create(nameof(ChildGrowAnimationDuration), typeof(int), typeof(RadialMenu), 600);
+        public int ChildGrowAnimationDuration
+        {
+            get
+            {
+                return (int)GetValue(ChildGrowAnimationDurationProperty);
+            }
+             set
+            {
+                SetValue(ChildGrowAnimationDurationProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Child 'shrink' animation duration in milliseconds .Default value is 600
+        /// </summary>
+        public static readonly BindableProperty ChildShrinkAnimationDurationProperty =
+BindableProperty.Create(nameof(ChildShrinkAnimationDuration), typeof(int), typeof(RadialMenu), 600);
+        public int ChildShrinkAnimationDuration
+        {
+            get
+            {
+                return (int)GetValue(ChildShrinkAnimationDurationProperty);
+            }
+             set
+            {
+                SetValue(ChildShrinkAnimationDurationProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Open animation duration in milliseconds.Default value is 1000
+        /// </summary>
+        public static readonly BindableProperty MenuOpenAnimationDurationProperty =
+BindableProperty.Create(nameof(MenuOpenAnimationDuration), typeof(int), typeof(RadialMenu), 1000);
+        public int MenuOpenAnimationDuration
+        {
+            get
+            {
+                return (int)GetValue(MenuOpenAnimationDurationProperty);
+            }
+             set
+            {
+                SetValue(MenuOpenAnimationDurationProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Close animation duration in milliseconds .Default value is 1000
+        /// </summary>
+        public static readonly BindableProperty MenuCloseAnimationDurationProperty =
+BindableProperty.Create(nameof(MenuCloseAnimationDuration), typeof(int), typeof(RadialMenu), 1000);
+        public int MenuCloseAnimationDuration
+        {
+            get
+            {
+                return (int)GetValue(MenuCloseAnimationDurationProperty);
+            }
+             set
+            {
+                SetValue(MenuCloseAnimationDurationProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Parent to Child 'shrink' menu easing animation
+        /// </summary>
+        public static readonly BindableProperty ChildShrinkEasingProperty =
+ BindableProperty.Create(nameof(ChildShrinkEasing), typeof(Easing), typeof(RadialMenu), Easing.CubicOut);
+        public Easing ChildShrinkEasing
+        {
+            get
+            {
+                return (Easing)GetValue(ChildShrinkEasingProperty);
+            }
+             set
+            {
+                SetValue(ChildShrinkEasingProperty, value);
+            }
+        }
+        /// <summary>
+        /// Parent to Child 'grow' menu eaing animation
+        /// </summary>
+        public static readonly BindableProperty ChildGrowEasingProperty =
+BindableProperty.Create(nameof(ChildGrowEasing), typeof(Easing), typeof(RadialMenu), Easing.CubicInOut);
+        public Easing ChildGrowEasing
+        {
+            get
+            {
+                return (Easing)GetValue(ChildGrowEasingProperty);
+            }
+             set
+            {
+                SetValue(ChildGrowEasingProperty, value);
+            }
+        }
+        /// <summary>
+        /// Menu 'open' easing animation
+        /// </summary>
+        public static readonly BindableProperty MenuOpenEasingProperty =
+BindableProperty.Create(nameof(MenuOpenEasing), typeof(Easing), typeof(RadialMenu),Easing.BounceIn);
+        public Easing MenuOpenEasing
+        {
+            get
+            {
+                return (Easing)GetValue(MenuOpenEasingProperty);
+            }
+             set
+            {
+                SetValue(MenuOpenEasingProperty, value);
+            }
+        }
+        /// <summary>
+        /// Menu 'close' easing animation
+        /// </summary>
+        public static readonly BindableProperty MenuCloseEasingProperty =
+BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMenu), Easing.BounceOut);
+        public Easing MenuCloseEasing
+        {
+            get
+            {
+                return (Easing)GetValue(MenuCloseEasingProperty);
+            }
+             set
+            {
+                SetValue(MenuCloseEasingProperty, value);
+            }
+        }
 
         public static readonly BindableProperty CloseMenuWhenChildTappedProperty =
     BindableProperty.Create(nameof(CloseMenuWhenChildTapped), typeof(bool), typeof(RadialMenu), false);
@@ -32,7 +164,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 return (bool)GetValue(CloseMenuWhenChildTappedProperty);
             }
-            private set
+             set
             {
                 SetValue(CloseMenuWhenChildTappedProperty, value);
             }
@@ -219,7 +351,7 @@ namespace Xamarin.Forms.RadialMenu
                 Command = new Command(async () =>
                 {
                     //IsOpened = false;
-                    ChildItemTapped?.Invoke(this, new Models.ChildItemTapped() { Parent = parentItem, ItemTapped = value });
+                    ChildItemTapped?.Invoke(this, new Models.ChildItemTapped() { Parent = ParentInBackgroundItem, ItemTapped = value });
                     if (CloseMenuWhenChildTapped)
                     {
                         IsOpened = false;
@@ -245,9 +377,8 @@ namespace Xamarin.Forms.RadialMenu
 
                             ClearGridButtons();
 
-                            await OuterCircle.ScaleTo(1, 1000, Easing.BounceOut);
+                            await OuterCircle.ScaleTo(1, (uint)MenuCloseAnimationDuration, MenuCloseEasing);
 
-                            ParentInBackgroundItem = new RadialMenuItem();
 
                             InnerButtonClose.IsVisible = false;
                             BackButton.IsVisible = false;
@@ -286,7 +417,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 Command = new Command(() =>
                 {
-                    
+                    ParentInBackgroundItem = item;
                     ItemTapped?.Invoke(this, value);
                     if (item.ChildItems?.Count > 0)
                     {
@@ -352,8 +483,8 @@ namespace Xamarin.Forms.RadialMenu
                 InnerButtonClose.RotateTo(360, _animationDelay);
                 InnerButtonClose.FadeTo(1, _animationDelay);
 
-                await OuterCircle.ScaleTo(1, 600, Easing.CubicOut);
-                await OuterCircle.ScaleTo(3.3, 600, Easing.CubicInOut);
+                await OuterCircle.ScaleTo(1, (uint)ChildShrinkAnimationDuration, ChildShrinkEasing);
+                await OuterCircle.ScaleTo(3.3, (uint)ChildGrowAnimationDuration, ChildGrowEasing);
                 ClearGridButtons();
 
                 //Show Main buttons again
@@ -393,7 +524,7 @@ namespace Xamarin.Forms.RadialMenu
                     InnerButtonClose.FadeTo(0, _animationDelay);
                     InnerButtonMenu.RotateTo(0, _animationDelay);
                     InnerButtonMenu.FadeTo(1, _animationDelay);
-                    await OuterCircle.ScaleTo(1, 1000, Easing.BounceOut);
+                    await OuterCircle.ScaleTo(1, (uint)MenuCloseAnimationDuration, MenuCloseEasing);
                     InnerButtonClose.IsVisible = false;
                     BackButton.IsVisible = false;
                     _isAnimating = false;
@@ -415,8 +546,8 @@ namespace Xamarin.Forms.RadialMenu
                     BackButton.FadeTo(1, _animationDelay);
 
 
-                    await OuterCircle.ScaleTo(1, 600, Easing.CubicOut);
-                    await OuterCircle.ScaleTo(3.3, 600, Easing.CubicInOut);
+                    await OuterCircle.ScaleTo(1, (uint)ChildShrinkAnimationDuration, ChildShrinkEasing);
+                    await OuterCircle.ScaleTo(3.3, (uint)ChildGrowAnimationDuration, ChildGrowEasing);
 
 
 
@@ -432,7 +563,7 @@ namespace Xamarin.Forms.RadialMenu
                         }
                     }
                     await ShowButtons(itemTapped.ChildItems);
-                    ParentInBackgroundItem = itemTapped;
+                    //ParentInBackgroundItem = itemTapped;
 
                     InnerButtonClose.IsVisible = false;
                     InnerButtonMenu.IsVisible = false;
@@ -474,7 +605,7 @@ namespace Xamarin.Forms.RadialMenu
                 InnerButtonClose.RotateTo(360, _animationDelay);
                 InnerButtonClose.FadeTo(1, _animationDelay);
 
-                await OuterCircle.ScaleTo(3.3, 1000, Easing.BounceIn);
+                await OuterCircle.ScaleTo(3.3, (uint)MenuOpenAnimationDuration, MenuOpenEasing);
                 await ShowButtons(MenuItemsSource);
                 InnerButtonMenu.IsVisible = false;
 

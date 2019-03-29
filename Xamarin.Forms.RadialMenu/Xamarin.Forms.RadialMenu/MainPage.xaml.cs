@@ -33,7 +33,7 @@ namespace Xamarin.Forms.RadialMenu
                     Location = Enumerations.Enumerations.RadialMenuLocation.N,Title="North",
                     ChildItems=new ObservableCollection<RadialMenuItem>()
                     {
-                        
+
                             new RadialMenuItem()
                             {
                                 Source = "menu_lorry.png",
@@ -73,7 +73,22 @@ namespace Xamarin.Forms.RadialMenu
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.Enumerations.RadialMenuLocation.Ne
+                Location = Enumerations.Enumerations.RadialMenuLocation.Ne,
+                ChildItems = new ObservableCollection<RadialMenuItem>()
+                    {
+
+                            new RadialMenuItem()
+                            {
+                                Source = "menu_factory.png",
+                                WidthRequest = 38,
+                                HeightRequest = 38,
+                                VerticalOptions = LayoutOptions.Center,
+                                HorizontalOptions = LayoutOptions.Center,
+                                Location = Enumerations.Enumerations.RadialMenuLocation.N
+
+                            }
+
+                    }
             });
             vm.MenuItems.Add(new RadialMenuItem()
             {
@@ -123,11 +138,15 @@ namespace Xamarin.Forms.RadialMenu
             };
             Menu.ChildItemTapped += async (sender, child) =>
             {
-                Notifier.Text = child.ItemTapped.ToString();
-                await Task.Delay(2000);
+                Notifier.Text = $"Parent:{child.Parent.Location.ToString()} Child:{child.ItemTapped.ToString()}";
+                await Task.Delay(5000);
                 Notifier.Text = "";
 
             };
+            Menu.ChildShrinkEasing = Easing.CubicOut;
+            Menu.ChildGrowEasing = Easing.CubicInOut;
+            Menu.MenuOpenEasing = Easing.BounceIn;
+            Menu.MenuCloseEasing = Easing.BounceOut;
         }
 
     }
@@ -141,7 +160,7 @@ namespace Xamarin.Forms.RadialMenu
             {
 
                 itemGrid.Children.Add(new Image() { Source = Source });
-                var label = new Label() { FontSize = 10,HorizontalOptions=LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, TextColor = Color.White, HorizontalTextAlignment = TextAlignment.Center, Text = Title, Margin = new Thickness(0, 1, 0, 0) };
+                var label = new Label() { FontSize = 10, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, TextColor = Color.White, HorizontalTextAlignment = TextAlignment.Center, Text = Title, Margin = new Thickness(0, 1, 0, 0) };
                 itemGrid.Children.Add(label);
                 Content = itemGrid;
             }
