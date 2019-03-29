@@ -59,6 +59,19 @@
                     </On>
                 </OnPlatform>
             </local:RadialMenu.OuterCircleImageSource>
+            <local:RadialMenu.BackButtonImageSource>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="iOS">
+                        <FileImageSource File="back_circle.png" />
+                    </On>
+                    <On Platform="Android">
+                        <FileImageSource File="back_circle.png" />
+                    </On>
+                    <On Platform="UWP">
+                        <FileImageSource File="back_circle.png" />
+                    </On>
+                </OnPlatform>
+            </local:RadialMenu.BackButtonImageSource>
         </local:RadialMenu>
         <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center">
         </Label>

@@ -40,6 +40,21 @@ namespace Xamarin.Forms.RadialMenu.Models
             }
         }
 
+        public static readonly BindableProperty ChildItemsProperty =
+            BindableProperty.Create(nameof(ChildItems), typeof(ObservableCollection<RadialMenuItem>), typeof(RadialMenuItem), null);
+        public ObservableCollection<RadialMenuItem> ChildItems
+        {
+            get
+            {
+                return (ObservableCollection<RadialMenuItem>)GetValue(ChildItemsProperty);
+            }
+            set
+            {
+                if(value!=null)
+                    SetValue(ChildItemsProperty, value);
+            }
+        }
+
         public virtual void Draw()
         {
             var itemGrid = new Grid();

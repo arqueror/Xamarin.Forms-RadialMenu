@@ -14,11 +14,29 @@ using Xamarin.Forms.Xaml;
 
 namespace Xamarin.Forms.RadialMenu
 {
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RadialMenu : ContentView
     {
 
         public event EventHandler<Enumerations.Enumerations.RadialMenuLocation> ItemTapped;
+        public event EventHandler<ChildItemTapped> ChildItemTapped;
+        private static RadialMenuItem ParentInBackgroundItem { get; set; }
+
+
+        public static readonly BindableProperty IsChildItemOpenedProperty =
+            BindableProperty.Create(nameof(IsChildItemOpened), typeof(bool), typeof(RadialMenu), false);
+        public bool IsChildItemOpened
+        {
+            get
+            {
+                return (bool)GetValue(IsChildItemOpenedProperty);
+            }
+            private set
+            {
+                SetValue(IsChildItemOpenedProperty, value);
+            }
+        }
 
         public static readonly BindableProperty IsShadowVisibleProperty =
              BindableProperty.Create(nameof(IsShadowVisible), typeof(bool), typeof(RadialMenu), false);
@@ -33,6 +51,21 @@ namespace Xamarin.Forms.RadialMenu
                 SetValue(IsShadowVisibleProperty, value);
             }
         }
+
+        public static readonly BindableProperty BackButtonImageSourceProperty =
+            BindableProperty.Create(nameof(BackButtonImageSource), typeof(ImageSource), typeof(RadialMenu), default(ImageSource));
+        public ImageSource BackButtonImageSource
+        {
+            get
+            {
+                return (ImageSource)GetValue(BackButtonImageSourceProperty);
+            }
+            private set
+            {
+                SetValue(BackButtonImageSourceProperty, value);
+            }
+        }
+
 
         public static readonly BindableProperty OuterCircleImageSourceProperty =
             BindableProperty.Create(nameof(OuterCircleImageSource), typeof(ImageSource), typeof(RadialMenu), default(ImageSource));
@@ -100,6 +133,13 @@ namespace Xamarin.Forms.RadialMenu
                         mainGrid.Children.Add(item);
                     var source = (Xamarin.Forms.FileImageSource)item.Source;
                     HandleOptionClicked(item, item.Location);
+                    //for (int j = 0; j < item.ChildItems.Count; j++)
+                    //{
+                    //    var childItem = item.ChildItems[j] as RadialMenuItem;
+                    //    OrganizeItem(childItem);
+                    //    //mainGrid.Children.Add(childItem);
+                    //    //HandleChildOptionClicked(childItem, childItem.Location);
+                    //}
                 }
             }
         }
@@ -157,21 +197,45 @@ namespace Xamarin.Forms.RadialMenu
             InitializeComponent();
             InnerButtonClose.IsVisible = false;
             InnerButtonMenu.IsVisible = true;
+            BackButton.IsVisible = false;
             HandleMenuCenterClicked();
             HandleCloseClicked();
 
         }
-
+        private void HandleChildOptionClicked(RadialMenuItem parentItem, Enumerations.Enumerations.RadialMenuLocation value)
+        {
+            parentItem.GestureRecognizers.Clear();
+            parentItem.GestureRecognizers.Add(new TapGestureRecognizer()
+            {
+                Command = new Command(() =>
+                {
+                    //IsOpened = false;
+                    ChildItemTapped?.Invoke(this, new Models.ChildItemTapped() { Parent = parentItem, ItemTapped = value });
+                    //TODO Go back or close Menu. Prob add a property to let developer choose
+                }),
+                NumberOfTapsRequired = 1
+            });
+        }
         private void HandleOptionClicked(RadialMenuItem item, Enumerations.Enumerations.RadialMenuLocation value)
         {
-            
+            item.GestureRecognizers.Clear();
             item.GestureRecognizers.Add(new TapGestureRecognizer()
             {
                 Command = new Command(() =>
                 {
-                    IsOpened = false;
+                    
                     ItemTapped?.Invoke(this, value);
-                    CloseMenu();
+                    if (item.ChildItems?.Count > 0)
+                    {
+                        IsChildItemOpened = true;
+                        CloseMenu(item);//Navigate to submenu
+                    }
+                    else
+                    {
+                        IsOpened = false;
+                        IsChildItemOpened = false;
+                        CloseMenu();
+                    }
                 }),
                 NumberOfTapsRequired = 1
             });
@@ -181,6 +245,7 @@ namespace Xamarin.Forms.RadialMenu
         {
             InnerButtonClose.GestureRecognizers.Add(new TapGestureRecognizer
             {
+                
                 Command = new Command(async () =>
                 {
                     IsOpened = false;
@@ -191,27 +256,130 @@ namespace Xamarin.Forms.RadialMenu
             });
 
         }
+        private void HandleBackClicked()
+        {
+            BackButton.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(async () =>
+                {
+                    //IsOpened = false;
+                    //await CloseMenu();
+                
 
-        public async Task CloseMenu()
+                    //Menu Animations
+                    if (!_isAnimating)
+                    {
+                        _isAnimating = true;
+                        IsChildItemOpened = false;
+                        await HideButtons(ParentInBackgroundItem.ChildItems);
+                        
+                        InnerButtonMenu.IsVisible = false;
+                        InnerButtonClose.IsVisible = true;
+                        BackButton.IsVisible = true;
+                        //await HideButtons(MenuItemsSource);
+
+
+                        //InnerButtonMenu.RotateTo(0, _animationDelay);
+                        //InnerButtonMenu.FadeTo(0, _animationDelay);
+                        BackButton.RotateTo(0, _animationDelay);
+                        BackButton.FadeTo(0, _animationDelay);
+                        InnerButtonClose.RotateTo(0, _animationDelay);
+                        InnerButtonClose.FadeTo(1, _animationDelay);
+
+                        await OuterCircle.ScaleTo(1, 600, Easing.CubicOut);
+                        await OuterCircle.ScaleTo(3.3, 600, Easing.CubicInOut);
+                        ClearGridButtons();
+
+                        //Show Main buttons again
+                        for (int j = 0; j < MenuItemsSource.Count; j++)
+                        {
+                            var childItem = MenuItemsSource[j] as RadialMenuItem;
+                            //OrganizeItem(childItem);
+                            mainGrid.Children.Add(childItem);
+                            HandleOptionClicked(childItem, childItem.Location);
+                        }
+
+                        await ShowButtons(MenuItemsSource);
+                        InnerButtonMenu.IsVisible = false;
+                        BackButton.IsVisible = false;
+                        _isAnimating = false;
+
+                        HandleMenuCenterClicked();
+                        HandleCloseClicked();
+                        BackButton.GestureRecognizers.Clear();
+                    }
+                }),
+                NumberOfTapsRequired = 1
+            });
+
+        }
+
+        public async Task CloseMenu(RadialMenuItem itemTapped = null)
         {
             if (!_isAnimating)
             {
+                if (itemTapped == null)
+                {
+                    _isAnimating = true;
 
-                _isAnimating = true;
+                    InnerButtonMenu.IsVisible = true;
+                    InnerButtonClose.IsVisible = true;
+                    await HideButtons(MenuItemsSource);
 
-                InnerButtonMenu.IsVisible = true;
-                InnerButtonClose.IsVisible = true;
-                await HideButtons();
+                    InnerButtonClose.RotateTo(0, _animationDelay);
+                    InnerButtonClose.FadeTo(0, _animationDelay);
+                    InnerButtonMenu.RotateTo(0, _animationDelay);
+                    InnerButtonMenu.FadeTo(1, _animationDelay);
+                    await OuterCircle.ScaleTo(1, 1000, Easing.BounceOut);
+                    InnerButtonClose.IsVisible = false;
 
-                InnerButtonClose.RotateTo(0, _animationDelay);
-                InnerButtonClose.FadeTo(0, _animationDelay);
-                InnerButtonMenu.RotateTo(0, _animationDelay);
-                InnerButtonMenu.FadeTo(1, _animationDelay);
-                await OuterCircle.ScaleTo(1, 1000, Easing.BounceOut);
-                InnerButtonClose.IsVisible = false;
+                    _isAnimating = false;
+                }
+                else
+                {
+                    _isAnimating = true;
 
-                _isAnimating = false;
+                    InnerButtonMenu.IsVisible = false;
+                    InnerButtonClose.IsVisible = true;
+                    BackButton.IsVisible = true;
+                    await HideButtons(MenuItemsSource);
 
+                    InnerButtonClose.RotateTo(0, _animationDelay);
+                    InnerButtonClose.FadeTo(0, _animationDelay);
+                    InnerButtonMenu.RotateTo(0, _animationDelay);
+                    InnerButtonMenu.FadeTo(1, _animationDelay);
+                    BackButton.RotateTo(360, _animationDelay);
+                    BackButton.FadeTo(1, _animationDelay);
+
+
+                    await OuterCircle.ScaleTo(1, 600, Easing.CubicOut);
+                    await OuterCircle.ScaleTo(3.3, 600, Easing.CubicInOut);
+
+
+
+                    ClearGridButtons();
+                    if (itemTapped.ChildItems != null && itemTapped.ChildItems.Count > 0)
+                    {
+                        for (int j = 0; j < itemTapped.ChildItems.Count; j++)
+                        {
+                            var childItem = itemTapped.ChildItems[j];
+                            OrganizeItem(childItem);
+                            mainGrid.Children.Add(childItem);
+                            HandleChildOptionClicked(childItem, childItem.Location);
+                        }
+                    }
+                    await ShowButtons(itemTapped.ChildItems);
+                    ParentInBackgroundItem = itemTapped;
+
+                    InnerButtonClose.IsVisible = false;
+                    InnerButtonMenu.IsVisible = false;
+
+                    HandleBackClicked();
+                    InnerButtonMenu.GestureRecognizers.Clear();
+                    InnerButtonClose.GestureRecognizers.Clear();
+
+                    _isAnimating = false;
+                }
             }
         }
 
@@ -219,9 +387,10 @@ namespace Xamarin.Forms.RadialMenu
         {
             InnerButtonMenu.GestureRecognizers.Add(new TapGestureRecognizer
             {
-                Command = new Command(async () => {
+                Command = new Command(async () =>
+                {
                     IsOpened = true;
-                    await OpenMenu(); 
+                    await OpenMenu();
                 }),
                 NumberOfTapsRequired = 1
             });
@@ -243,17 +412,17 @@ namespace Xamarin.Forms.RadialMenu
                 InnerButtonClose.FadeTo(1, _animationDelay);
 
                 await OuterCircle.ScaleTo(3.3, 1000, Easing.BounceIn);
-                await ShowButtons();
+                await ShowButtons(MenuItemsSource);
                 InnerButtonMenu.IsVisible = false;
 
                 _isAnimating = false;
-               
+
             }
         }
-        private async Task HideButtons(uint speed=25)
+        private async Task HideButtons(IList items, uint speed = 25)
         {
-            if (MenuItemsSource == null || MenuItemsSource.Count <= 0) return;
-            var list = MenuItemsSource as IList<RadialMenuItem>;
+            if (items == null || items.Count <= 0) return;
+            var list = items as IList<RadialMenuItem>;
             var orderedList = list?.OrderBy(x => x.Location).Reverse();
             if (orderedList != null)
             {
@@ -265,7 +434,21 @@ namespace Xamarin.Forms.RadialMenu
             }
         }
 
-        private async Task ShowButtons()
+        private async Task ShowButtons(IList items, uint speed = 25)
+        {
+            if (items == null || items.Count <= 0) return;
+            var list = items as IList<RadialMenuItem>;
+            var orderedList = list?.OrderBy(x => x.Location);
+            if (orderedList != null)
+            {
+                foreach (var i in orderedList)
+                {
+                    i.IsVisible = true;
+                    await i.FadeTo(1, speed);
+                }
+            }
+        }
+        private void ClearGridButtons()
         {
             if (MenuItemsSource == null || MenuItemsSource.Count <= 0) return;
             var speed = 25U;
@@ -275,8 +458,14 @@ namespace Xamarin.Forms.RadialMenu
             {
                 foreach (var i in orderedList)
                 {
-                    i.IsVisible = true;
-                    await i.FadeTo(1, speed);
+
+                    if (i.Title != "OuterCircle" && i.Title != "InnerButtonMenu" &&
+                        i.Title != "InnerButtonClose" && i.Title != "BackButton")
+                        mainGrid.Children.Remove(i);
+
+
+
+
                 }
             }
         }
@@ -288,10 +477,11 @@ namespace Xamarin.Forms.RadialMenu
             var notifyCollection = newValue as INotifyCollectionChanged;
             if (notifyCollection != null)
             {
-                HideButtons(0);
-                            OuterCircle.Draw();
-                    InnerButtonMenu.Draw();
-                    InnerButtonClose.Draw();
+                HideButtons(MenuItemsSource, 0);
+                OuterCircle.Draw();
+                InnerButtonMenu.Draw();
+                InnerButtonClose.Draw();
+                BackButton.Draw();
                 foreach (RadialMenuItem newItem in MenuItemsSource)
                 {
                     OrganizeItem(newItem);

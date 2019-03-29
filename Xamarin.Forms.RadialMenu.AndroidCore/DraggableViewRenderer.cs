@@ -155,8 +155,8 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
                     SetX(currentCenterX);
                     SetY(currentCenterY);
                 }
-                dragView.OpenMenu();
-
+                if(!dragView.IsChildItemOpened)
+                    dragView.OpenMenu();
 
           
             }

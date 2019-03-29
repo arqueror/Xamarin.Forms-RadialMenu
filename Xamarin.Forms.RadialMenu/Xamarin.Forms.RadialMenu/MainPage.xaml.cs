@@ -10,17 +10,17 @@ using Xamarin.Forms.RadialMenu.ViewModels;
 
 namespace Xamarin.Forms.RadialMenu
 {
-	public partial class MainPage : ContentPage
-	{
+    public partial class MainPage : ContentPage
+    {
         //public ObservableCollection<RadialMenuItem> MenuItems;
         public MainMenuViewModel vm;
         public MainPage()
         {
-           
+
             InitializeComponent();
             vm = new MainMenuViewModel();
             BindingContext = vm;
-            var custItem=
+
             vm.MenuItems = new ObservableCollection<RadialMenuItem>()
             {
                 new CustomizedItem()
@@ -30,7 +30,40 @@ namespace Xamarin.Forms.RadialMenu
                     HeightRequest = 38,
                     VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.Center,
-                    Location = Enumerations.Enumerations.RadialMenuLocation.N,Title="North"
+                    Location = Enumerations.Enumerations.RadialMenuLocation.N,Title="North",
+                    ChildItems=new ObservableCollection<RadialMenuItem>()
+                    {
+                        
+                            new RadialMenuItem()
+                            {
+                                Source = "menu_lorry.png",
+                                WidthRequest = 38,
+                                HeightRequest = 38,
+                                VerticalOptions = LayoutOptions.Center,
+                                HorizontalOptions = LayoutOptions.Center,
+                                Location = Enumerations.Enumerations.RadialMenuLocation.N
+
+                            },
+                        new RadialMenuItem()
+                        {
+                            Source = "menu_lorry.png",
+                            WidthRequest = 38,
+                            HeightRequest = 38,
+                            VerticalOptions = LayoutOptions.Center,
+                            HorizontalOptions = LayoutOptions.Center,
+                            Location = Enumerations.Enumerations.RadialMenuLocation.Ne
+                        }, new RadialMenuItem()
+                        {
+                            Source = "menu_factory.png",
+                            WidthRequest = 38,
+                            HeightRequest = 38,
+                            VerticalOptions = LayoutOptions.Center,
+                            HorizontalOptions = LayoutOptions.Center,
+                            Location = Enumerations.Enumerations.RadialMenuLocation.E
+
+                        },
+
+                    }
                 }
             };
             vm.MenuItems.Add(new RadialMenuItem()
@@ -58,7 +91,8 @@ namespace Xamarin.Forms.RadialMenu
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.Enumerations.RadialMenuLocation.Se,Title="SE"
+                Location = Enumerations.Enumerations.RadialMenuLocation.Se,
+                Title = "SE"
             });
             vm.MenuItems.Add(new RadialMenuItem()
             {
@@ -87,22 +121,29 @@ namespace Xamarin.Forms.RadialMenu
                 Notifier.Text = "";
 
             };
+            Menu.ChildItemTapped += async (sender, child) =>
+            {
+                Notifier.Text = child.ItemTapped.ToString();
+                await Task.Delay(2000);
+                Notifier.Text = "";
+
+            };
         }
 
     }
 
-    public class CustomizedItem:RadialMenuItem
+    public class CustomizedItem : RadialMenuItem
     {
         public override void Draw()
         {
-            var itemGrid = new StackLayout(){Spacing=0};
+            var itemGrid = new StackLayout() { Spacing = 0 };
             if (Source != null)
             {
-               
-                itemGrid.Children.Add(new Image(){Source=Source});
-                var label = new Label() {FontSize=11,VerticalOptions = LayoutOptions.End,TextColor=Color.White,HorizontalTextAlignment=TextAlignment.Center,Text= Title, Margin=new Thickness(0,1,0,0)};
+
+                itemGrid.Children.Add(new Image() { Source = Source });
+                var label = new Label() { FontSize = 10,HorizontalOptions=LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, TextColor = Color.White, HorizontalTextAlignment = TextAlignment.Center, Text = Title, Margin = new Thickness(0, 1, 0, 0) };
                 itemGrid.Children.Add(label);
-                Content=itemGrid;
+                Content = itemGrid;
             }
         }
     }
