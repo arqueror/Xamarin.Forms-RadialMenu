@@ -185,6 +185,7 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
         }
         public override void TouchesMoved(NSSet touches, UIEvent evt)
         {
+            if ((Element as RadialMenu).IsOpened) return;
             if (evt.Timestamp - lastTimeStamp >= 0.5)
             {
                 longPress = true;
