@@ -26,13 +26,24 @@ or download repo and compile it manually so you can reference it from your targe
             <RowDefinition></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
-          
+           <local:RadialMenu BackButtonImageSource="back_circle.png"         <!-- CHILD MENU BACK BUTTON IMAGE-->
+                          OuterCircleImageSource="outer_circle.png"          <!-- OUTER CIRCLE IMAGE-->
+                          MainMenuCloseButtonImageSource="close_circle.png"  <!-- CLOSE IMAGE-->
+                          MainMenuImageSource="menu_circle.png"              <!-- MAIN MENU IMAGE-->
+                          MenuItemsSource="{Binding MenuItems}" 
+                          Grid.Row="0" x:Name="Menu" 
+                          CloseMenuWhenChildTapped="false"                  
+                          ChildGrowAnimationDuration="300"
+                          ChildShrinkAnimationDuration="300"
+                          MenuOpenAnimationDuration="800"
+                          MenuCloseAnimationDuration="800"
+                          IsShadowVisible="True">
               <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0"
                           HorizontalOptions="Fill" 
                           VerticalOptions="Fill"
-                          MainMenuCloseButtonImageSource="close_circle.png"    <!-- CLOSE IMAGE-->
-                          OuterCircleImageSource="outer_circle.png"             <!-- OUTER CIRCLE IMAGE-->
-                          MainMenuImageSource="menu_circle.png"                 <!-- MAIN MENU IMAGE-->
+                          MainMenuCloseButtonImageSource="close_circle.png"    
+                          OuterCircleImageSource="outer_circle.png"             
+                          MainMenuImageSource="menu_circle.png"                
                           x:Name="Menu">
                           
                            <!--HORIZONTAL/VERTICAL OPTIONS ARE DIFFERENT FOR EACH PLATFORM -->
@@ -40,20 +51,22 @@ or download repo and compile it manually so you can reference it from your targe
                             <!--For iOS use Fill for Horizontal and Vertical -->
                             <!--THIS ENSURES CLICK EVENTS PROPAGATES ONLY IN MENU AND NOT THROUGH ENTIRE GRID -->
                             
-                          <radial:RadialMenu.HorizontalOptions>
-                              <OnPlatform x:TypeArguments="LayoutOptions">    
-                                  <On Platform="Android" Value="Center"/>
-                                  <On Platform="iOS" Value="Fill"/>
-                              </OnPlatform>
-                          </radial:RadialMenu.HorizontalOptions>
-                           <radial:RadialMenu.VerticalOptions>
-                               <OnPlatform x:TypeArguments="LayoutOptions">    
-                                  <On Platform="Android" Value="Center"/>
-                                  <On Platform="iOS" Value="Fill"/>
-                              </OnPlatform>
-                          </radial:RadialMenu.VerticalOptions>
+                           <local:RadialMenu.HorizontalOptions>
+                <OnPlatform x:TypeArguments="LayoutOptions">
+                          <On Platform="Android" Value="Center" />
+                          <On Platform="iOS" Value="Fill" />
+                          <On Platform="UWP" Value="Center" />
+                      </OnPlatform>
+                  </local:RadialMenu.HorizontalOptions>
+                  <local:RadialMenu.VerticalOptions>
+                      <OnPlatform x:TypeArguments="LayoutOptions">
+                          <On Platform="Android" Value="Center" />
+                          <On Platform="iOS" Value="Fill" />
+                          <On Platform="UWP" Value="Center" />
+                      </OnPlatform>
+                  </local:RadialMenu.VerticalOptions>
                 </radial:RadialMenu>
-              <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
+                <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
 
         <!--ON ANDROID MAKE SURE IMAGES EXISTS IN RESOURCES FOLDER BEFORE RUNNING APP.OTHERWISE IT MAY CRASH-->
          
@@ -76,7 +89,22 @@ or download repo and compile it manually so you can reference it from your targe
                     HeightRequest = 38,
                     VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.Center,
-                    Location = Enumerations.Enumerations.RadialMenuLocation.N
+                    Location = Enumerations.Enumerations.RadialMenuLocation.N,
+                     ChildItems = new ObservableCollection<RadialMenuItem>()
+                    {
+
+                            new RadialMenuItem()
+                            {
+                                Source = "menu_factory.png",
+                                WidthRequest = 38,
+                                HeightRequest = 38,
+                                VerticalOptions = LayoutOptions.Center,
+                                HorizontalOptions = LayoutOptions.Center,
+                                Location = Enumerations.Enumerations.RadialMenuLocation.N
+
+                            }
+
+                    }
                 }
             };
             vm.MenuItems.Add(new RadialMenuItem()
@@ -196,8 +224,6 @@ OR
 
 
 # Missing Features
-- Add Nested lists to each RadialMenuItem
-- Add different animations to show radial menu and RadialMenuItems
 - **Draggable renderer for UWP**
 
 
