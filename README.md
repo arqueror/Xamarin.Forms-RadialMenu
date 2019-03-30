@@ -38,13 +38,6 @@ or download repo and compile it manually so you can reference it from your targe
                           MenuOpenAnimationDuration="800"
                           MenuCloseAnimationDuration="800"
                           IsShadowVisible="True">
-              <radial:RadialMenu MenuItemsSource="{Binding MenuItems}" Grid.Row="0"
-                          HorizontalOptions="Fill" 
-                          VerticalOptions="Fill"
-                          MainMenuCloseButtonImageSource="close_circle.png"    
-                          OuterCircleImageSource="outer_circle.png"             
-                          MainMenuImageSource="menu_circle.png"                
-                          x:Name="Menu">
                           
                            <!--HORIZONTAL/VERTICAL OPTIONS ARE DIFFERENT FOR EACH PLATFORM -->
                             <!--For Android use Center for Horizontal and Vertical -->
@@ -52,20 +45,20 @@ or download repo and compile it manually so you can reference it from your targe
                             <!--THIS ENSURES CLICK EVENTS PROPAGATES ONLY IN MENU AND NOT THROUGH ENTIRE GRID -->
                             
                            <local:RadialMenu.HorizontalOptions>
-                <OnPlatform x:TypeArguments="LayoutOptions">
-                          <On Platform="Android" Value="Center" />
-                          <On Platform="iOS" Value="Fill" />
-                          <On Platform="UWP" Value="Center" />
-                      </OnPlatform>
-                  </local:RadialMenu.HorizontalOptions>
-                  <local:RadialMenu.VerticalOptions>
-                      <OnPlatform x:TypeArguments="LayoutOptions">
-                          <On Platform="Android" Value="Center" />
-                          <On Platform="iOS" Value="Fill" />
-                          <On Platform="UWP" Value="Center" />
-                      </OnPlatform>
-                  </local:RadialMenu.VerticalOptions>
-                </radial:RadialMenu>
+                            <OnPlatform x:TypeArguments="LayoutOptions">
+                                      <On Platform="Android" Value="Center" />
+                                      <On Platform="iOS" Value="Fill" />
+                                      <On Platform="UWP" Value="Center" />
+                                  </OnPlatform>
+                              </local:RadialMenu.HorizontalOptions>
+                              <local:RadialMenu.VerticalOptions>
+                                  <OnPlatform x:TypeArguments="LayoutOptions">
+                                      <On Platform="Android" Value="Center" />
+                                      <On Platform="iOS" Value="Fill" />
+                                      <On Platform="UWP" Value="Center" />
+                                  </OnPlatform>
+                            </local:RadialMenu.VerticalOptions>
+                </local:RadialMenu>
                 <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center"></Label>
 
         <!--ON ANDROID MAKE SURE IMAGES EXISTS IN RESOURCES FOLDER BEFORE RUNNING APP.OTHERWISE IT MAY CRASH-->
