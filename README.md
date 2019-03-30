@@ -118,6 +118,14 @@ or download repo and compile it manually so you can reference it from your targe
             {
                   var textLocation = location.ToString();
             };
+            
+   Menu.ChildItemTapped += async (sender, child) =>
+            {
+                Notifier.Text = $"Parent:{child.Parent.Location.ToString()} Child:{child.ItemTapped.ToString()}";
+                await Task.Delay(5000);
+                Notifier.Text = "";
+
+            };
 
 ```
 
