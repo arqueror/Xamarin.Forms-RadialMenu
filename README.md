@@ -111,6 +111,26 @@ or download repo and compile it manually so you can reference it from your targe
             });
  ........
 ```
+## Properties
+            //Animations**
+            ChildShrinkEasing
+            ChildGrowEasing
+            MenuOpenEasing 
+            MenuCloseEasing 
+            //*************//
+            
+            BackButtonImageSource               //Child menu back button image
+            OuterCircleImageSource              //Outer menu circle backg image   
+            MainMenuCloseButtonImageSource      //Main Opened menu close button image
+            MainMenuImageSource                 //Closed menu button image
+            MenuItemsSource                     //Menu items
+            CloseMenuWhenChildTapped            //Trigger close logic when a child menu item is tapped. Otherwise triggers back   
+            ChildGrowAnimationDuration="600"    //Child menu easing animation duration (Open)
+            ChildShrinkAnimationDuration="600"  //Child menu shrinking animation duration (Closing)
+            MenuOpenAnimationDuration="100"     //Main menu open animation duration
+            MenuCloseAnimationDuration="100"    //Main menu close animation duration 
+            IsShadowVisible="True"              //Enable/Disable background shadow. For android only Api>=21 supported
+
 
 ## Events
 ```
