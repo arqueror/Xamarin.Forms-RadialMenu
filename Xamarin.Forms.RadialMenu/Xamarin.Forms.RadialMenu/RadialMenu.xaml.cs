@@ -22,6 +22,41 @@ namespace Xamarin.Forms.RadialMenu
         public event EventHandler<Enumerations.Enumerations.RadialMenuLocation> ItemTapped;
         public event EventHandler<ChildItemTapped> ChildItemTapped;
         private static RadialMenuItem ParentInBackgroundItem { get; set; }
+        /// <summary>
+        /// Each menu item hiding animation duration in milliseconds .Default value is 80
+        /// </summary>
+        public static readonly BindableProperty MenuItemHidingDurationProperty =
+BindableProperty.Create(nameof(MenuItemHidingDuration), typeof(int), typeof(RadialMenu), 80);
+        public int MenuItemHidingDuration
+        {
+            get
+            {
+                return (int)GetValue(MenuItemHidingDurationProperty);
+            }
+            set
+            {
+                SetValue(MenuItemHidingDurationProperty, value);
+            }
+        }
+
+
+        /// <summary>
+        /// Each menu item appearing animation duration in milliseconds .Default value is 100
+        /// </summary>
+        public static readonly BindableProperty MenuItemAppearingDurationProperty =
+BindableProperty.Create(nameof(MenuItemAppearingDuration), typeof(int), typeof(RadialMenu), 100);
+        public int MenuItemAppearingDuration
+        {
+            get
+            {
+                return (int)GetValue(MenuItemAppearingDurationProperty);
+            }
+            set
+            {
+                SetValue(MenuItemAppearingDurationProperty, value);
+            }
+        }
+
 
         /// <summary>
         /// Child 'grow' animation duration in milliseconds .Default value is 600
@@ -170,6 +205,18 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
             }
         }
 
+        public static readonly BindableProperty IsMenuSandboxEnabledProperty = BindableProperty.Create(nameof(IsMenuSandboxEnabled), typeof(bool), typeof(RadialMenu), true);
+        public bool IsMenuSandboxEnabled
+        {
+            get
+            {
+                return (bool)GetValue(IsMenuSandboxEnabledProperty);
+            }
+            set
+            {
+                SetValue(IsMenuSandboxEnabledProperty, value);
+            }
+        }
 
         public static readonly BindableProperty IsChildItemOpenedProperty =
             BindableProperty.Create(nameof(IsChildItemOpened), typeof(bool), typeof(RadialMenu), false);
@@ -278,7 +325,7 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
                     OrganizeItem(item);
                     if (!mainGrid.Children.Contains(item))
                         mainGrid.Children.Add(item);
-                    var source = (Xamarin.Forms.FileImageSource)item.Source;
+                    //var source = (Xamarin.Forms.FileImageSource)item.Source;
                     HandleOptionClicked(item, item.Location);
   
                 }
@@ -415,13 +462,14 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
             item.GestureRecognizers.Clear();
             item.GestureRecognizers.Add(new TapGestureRecognizer()
             {
-                Command = new Command(() =>
+                Command = new Command(async () =>
                 {
                     ParentInBackgroundItem = item;
                     ItemTapped?.Invoke(this, value);
                     if (item.ChildItems?.Count > 0)
                     {
                         IsChildItemOpened = true;
+                        await HideButtons(ParentInBackgroundItem.ChildItems);
                         CloseMenu(item);//Navigate to submenu
                     }
                     else
@@ -617,13 +665,15 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
         {
             if (items == null || items.Count <= 0) return;
             var list = items as IList<RadialMenuItem>;
-            var orderedList = list?.OrderBy(x => x.Location).Reverse();
+            var orderedList = list?.OrderBy(x => x.AppearingOrder).Reverse();
             if (orderedList != null)
             {
                 foreach (var i in orderedList)
                 {
+                   
+                     //i.FadeTo(0, speed);
+                    await i.ScaleTo(0, (uint)MenuItemHidingDuration, Easing.SinOut);
                     i.IsVisible = false;
-                    await i.FadeTo(0, speed);
                 }
             }
         }
@@ -632,13 +682,14 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
         {
             if (items == null || items.Count <= 0) return;
             var list = items as IList<RadialMenuItem>;
-            var orderedList = list?.OrderBy(x => x.Location);
+            var orderedList = list?.OrderBy(x => x.AppearingOrder);
             if (orderedList != null)
             {
                 foreach (var i in orderedList)
                 {
                     i.IsVisible = true;
-                    await i.FadeTo(1, speed);
+                    //i.FadeTo(1, speed);
+                    await i.ScaleTo(1, (uint)MenuItemAppearingDuration);
                 }
             }
         }
@@ -647,7 +698,7 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
             if (MenuItemsSource == null || MenuItemsSource.Count <= 0) return;
             var speed = 25U;
             var list = MenuItemsSource as IList<RadialMenuItem>;
-            var orderedList = list?.OrderBy(x => x.Location);
+            var orderedList = list?.OrderBy(x => x.AppearingOrder);
             if (orderedList != null)
             {
                 foreach (var i in orderedList)

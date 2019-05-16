@@ -112,62 +112,67 @@ namespace Xamarin.Forms.RadialMenu.iOSCore
                     var currentCenterY = Center.Y;
                     int axisAdditionX = 100;
                     int axisAdditionY = 125;
-                    //SMART CONTAINMENT LOGIC
-                    //Is on the left side?
-                    if (currentCenterX <= axisAdditionX)
+                    if (dragView.IsMenuSandboxEnabled)
                     {
-                        currentCenterX += (axisAdditionX - currentCenterX);
-                        //Upper Y axis
-                        if (currentCenterY <= axisAdditionY)
-                        {
-                            currentCenterY += (axisAdditionY - currentCenterY);
-                        }
-                        //Bottom Y Axis
-                        if ((currentCenterY+axisAdditionY) >= sH)
-                        {
-                            currentCenterY = (sH- axisAdditionY);
-                        }
-                       
-                        Center = new CGPoint(currentCenterX, currentCenterY);
-                    }
-
-                    //Left X is good but Y top is not
-                    if (currentCenterY <= axisAdditionY)
-                    {
-                        currentCenterY += (axisAdditionY - currentCenterY);
+                        //SMART CONTAINMENT LOGIC
+                        //Is on the left side?
                         if (currentCenterX <= axisAdditionX)
                         {
                             currentCenterX += (axisAdditionX - currentCenterX);
+                            //Upper Y axis
+                            if (currentCenterY <= axisAdditionY)
+                            {
+                                currentCenterY += (axisAdditionY - currentCenterY);
+                            }
+                            //Bottom Y Axis
+                            if ((currentCenterY + axisAdditionY) >= sH)
+                            {
+                                currentCenterY = (sH - axisAdditionY);
+                            }
+
+                            Center = new CGPoint(currentCenterX, currentCenterY);
                         }
-                        Center = new CGPoint(currentCenterX, currentCenterY);
-                    }
 
-                    //Left X is good but Y bottom is not
-                    if ((currentCenterY + axisAdditionY) >= sH)
-                    {
-                        currentCenterY = (sH - axisAdditionY);
-                        Center = new CGPoint(currentCenterX, currentCenterY);
-                    }
-
-                    //Is on the right side?
-                    if ((currentCenterX + axisAdditionX) >= sW)
-                    {
-                        currentCenterX = (sW - axisAdditionX);
-
-                        //Upper Y axis
+                        //Left X is good but Y top is not
                         if (currentCenterY <= axisAdditionY)
                         {
                             currentCenterY += (axisAdditionY - currentCenterY);
+                            if (currentCenterX <= axisAdditionX)
+                            {
+                                currentCenterX += (axisAdditionX - currentCenterX);
+                            }
+                            Center = new CGPoint(currentCenterX, currentCenterY);
                         }
-                        //Bottom Y Axis
+
+                        //Left X is good but Y bottom is not
                         if ((currentCenterY + axisAdditionY) >= sH)
                         {
                             currentCenterY = (sH - axisAdditionY);
+                            Center = new CGPoint(currentCenterX, currentCenterY);
                         }
 
-                        Center = new CGPoint(currentCenterX, currentCenterY);
+                        //Is on the right side?
+                        if ((currentCenterX + axisAdditionX) >= sW)
+                        {
+                            currentCenterX = (sW - axisAdditionX);
+
+                            //Upper Y axis
+                            if (currentCenterY <= axisAdditionY)
+                            {
+                                currentCenterY += (axisAdditionY - currentCenterY);
+                            }
+                            //Bottom Y Axis
+                            if ((currentCenterY + axisAdditionY) >= sH)
+                            {
+                                currentCenterY = (sH - axisAdditionY);
+                            }
+
+                            Center = new CGPoint(currentCenterX, currentCenterY);
+                        }
+
+                        lastLocation = Center;
                     }
-                    lastLocation = Center;
+
                 }
             }
             base.OnElementPropertyChanged(sender, e);

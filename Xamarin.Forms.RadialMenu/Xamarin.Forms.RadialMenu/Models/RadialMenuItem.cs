@@ -10,6 +10,7 @@ namespace Xamarin.Forms.RadialMenu.Models
         //Close,Open or Layout item?
         public bool IsDefaultButton { get; set; } = false;
         public Enumerations.Enumerations.RadialMenuLocation Location { get; set; }
+        public int AppearingOrder { get; set; }
         public ObservableCollection<RadialMenuItem> DetailItems { get; set; }
         public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(RadialMenuItem), default(ImageSource));
 

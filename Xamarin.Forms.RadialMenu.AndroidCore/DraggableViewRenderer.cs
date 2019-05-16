@@ -96,64 +96,67 @@ namespace Xamarin.Forms.RadialMenu.AndroidCore
             {
                 dragView.IsOpened = true;
 
-                float currentCenterX = this.GetX();
-                float currentCenterY = this.GetY();
-
-                //SMART CONTAINMENT LOGIC
-                //Is on the left side?
-                if (currentCenterX <= axisAdditionX)
+                if (dragView.IsMenuSandboxEnabled)
                 {
-                    currentCenterX += (axisAdditionX - currentCenterX);
-                    //Upper Y axis
-                    if (currentCenterY <= axisAdditionY)
-                    {
-                        currentCenterY += (axisAdditionY - currentCenterY);
-                    }
-                    //Bottom Y Axis
-                    if ((currentCenterY + axisAdditionY) >= sH-160)
-                    {
-                        currentCenterY = ((sH-(axisAdditionY*2)-80));
-                    }
+                    float currentCenterX = this.GetX();
+                    float currentCenterY = this.GetY();
 
-                    SetX(currentCenterX);
-                    SetY(currentCenterY);
-                }
-                //Left X is good but Y top is not
-                if (currentCenterY <= axisAdditionY)
-                {
-                    currentCenterY += (axisAdditionY - currentCenterY);
+                    //SMART CONTAINMENT LOGIC
+                    //Is on the left side?
                     if (currentCenterX <= axisAdditionX)
                     {
                         currentCenterX += (axisAdditionX - currentCenterX);
+                        //Upper Y axis
+                        if (currentCenterY <= axisAdditionY)
+                        {
+                            currentCenterY += (axisAdditionY - currentCenterY);
+                        }
+                        //Bottom Y Axis
+                        if ((currentCenterY + axisAdditionY) >= sH - 160)
+                        {
+                            currentCenterY = ((sH - (axisAdditionY * 2) - 80));
+                        }
+
+                        SetX(currentCenterX);
+                        SetY(currentCenterY);
                     }
-                    SetX(currentCenterX);
-                    SetY(currentCenterY);
-                }
-                //Left X is good but Y bottom is not
-                if ((currentCenterY + axisAdditionY) >= (sH-160))
-                {
-                    currentCenterY = ((sH - (axisAdditionY * 2) - 80));
-                    SetX(currentCenterX);
-                    SetY(currentCenterY);
-                }
-
-                //Is on the right side?
-                if ((currentCenterX + axisAdditionX) >= (sW-160))
-                {
-                    currentCenterX = (sW - (axisAdditionX*2));
-
-                    //Upper Y axis
+                    //Left X is good but Y top is not
                     if (currentCenterY <= axisAdditionY)
                     {
                         currentCenterY += (axisAdditionY - currentCenterY);
+                        if (currentCenterX <= axisAdditionX)
+                        {
+                            currentCenterX += (axisAdditionX - currentCenterX);
+                        }
+                        SetX(currentCenterX);
+                        SetY(currentCenterY);
                     }
-                    //Bottom Y Axis
-                    if ((currentCenterY + axisAdditionY) >= sH - 160)
+                    //Left X is good but Y bottom is not
+                    if ((currentCenterY + axisAdditionY) >= (sH - 160))
                     {
                         currentCenterY = ((sH - (axisAdditionY * 2) - 80));
+                        SetX(currentCenterX);
+                        SetY(currentCenterY);
                     }
-                    SetX(currentCenterX);
-                    SetY(currentCenterY);
+
+                    //Is on the right side?
+                    if ((currentCenterX + axisAdditionX) >= (sW - 160))
+                    {
+                        currentCenterX = (sW - (axisAdditionX * 2));
+
+                        //Upper Y axis
+                        if (currentCenterY <= axisAdditionY)
+                        {
+                            currentCenterY += (axisAdditionY - currentCenterY);
+                        }
+                        //Bottom Y Axis
+                        if ((currentCenterY + axisAdditionY) >= sH - 160)
+                        {
+                            currentCenterY = ((sH - (axisAdditionY * 2) - 80));
+                        }
+                        SetX(currentCenterX);
+                        SetY(currentCenterY);
+                    }
                 }
                 if(!dragView.IsChildItemOpened)
                     dragView.OpenMenu();

@@ -14,10 +14,13 @@
                           MenuItemsSource="{Binding MenuItems}" 
                           Grid.Row="0" x:Name="Menu" 
                           CloseMenuWhenChildTapped="false"
-                          ChildGrowAnimationDuration="300"
-                          ChildShrinkAnimationDuration="300"
+                          ChildGrowAnimationDuration="400"
+                          ChildShrinkAnimationDuration="400"
                           MenuOpenAnimationDuration="800"
                           MenuCloseAnimationDuration="800"
+                          IsMenuSandboxEnabled="True"
+                          MenuItemAppearingDuration="100"
+                          MenuItemHidingDuration="80"
                           IsShadowVisible="True">
             <local:RadialMenu.HorizontalOptions>
                 <OnPlatform x:TypeArguments="LayoutOptions">
