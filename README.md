@@ -253,4 +253,10 @@ OR
  - CrossGeeks (https://github.com/CrossGeeks) for the Drag renderer base code.
 <br/>
 
+# Did you like it?
+
+<a href="https://www.buymeacoffee.com/jOUwyzl" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
+Your caffeine helps me a lot :sparkles:
+
 **Happy coding! :sparkles: :camel: :boom:**
