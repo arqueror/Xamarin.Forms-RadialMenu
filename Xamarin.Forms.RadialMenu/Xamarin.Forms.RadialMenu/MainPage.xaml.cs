@@ -10,7 +10,7 @@ using Xamarin.Forms.RadialMenu.ViewModels;
 
 namespace Xamarin.Forms.RadialMenu
 {
-    public partial class MainPage : ContentPage
+    partial class MainPage : ContentPage
     {
         //public ObservableCollection<RadialMenuItem> MenuItems;
         public MainMenuViewModel vm;
@@ -18,6 +18,8 @@ namespace Xamarin.Forms.RadialMenu
         {
 
             InitializeComponent();
+
+            //Always set BindingContext before filling MenuItemsSource.
             vm = new MainMenuViewModel();
             BindingContext = vm;
 
@@ -25,6 +27,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 new CustomizedItem()
                 {
+                    AppearingOrder = 3,
                     Source = "menu_paint.png",
                     WidthRequest = 38,
                     HeightRequest = 38,
@@ -64,10 +67,10 @@ namespace Xamarin.Forms.RadialMenu
                         },
 
                     }
-                }
-            };
-            vm.MenuItems.Add(new RadialMenuItem()
+                },
+            new RadialMenuItem()
             {
+                AppearingOrder = 1,
                 Source = "menu_lorry.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
@@ -89,18 +92,20 @@ namespace Xamarin.Forms.RadialMenu
                             }
 
                     }
-            });
-            vm.MenuItems.Add(new RadialMenuItem()
+            },
+            new RadialMenuItem()
             {
+                AppearingOrder = 2,
                 Source = "menu_factory.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 Location = Enumerations.Enumerations.RadialMenuLocation.E
-            });
-            vm.MenuItems.Add(new CustomizedItem()
+            },
+            new CustomizedItem()
             {
+                AppearingOrder = 4,
                 Source = "menu_cow.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
@@ -108,26 +113,29 @@ namespace Xamarin.Forms.RadialMenu
                 HorizontalOptions = LayoutOptions.Center,
                 Location = Enumerations.Enumerations.RadialMenuLocation.Se,
                 Title = "SE"
-            });
-            vm.MenuItems.Add(new RadialMenuItem()
+            },
+            new RadialMenuItem()
             {
+                AppearingOrder = 5,
                 Source = "menu_plane.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 Location = Enumerations.Enumerations.RadialMenuLocation.S
-            });
-            vm.MenuItems.Add(new RadialMenuItem()
+            },
+            new RadialMenuItem()
             {
+                AppearingOrder = 6,
                 Source = "menu_award.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 Location = Enumerations.Enumerations.RadialMenuLocation.Sw
-            });
+            }};
 
+         
 
             Menu.ItemTapped += async (sender, location) =>
             {
@@ -143,27 +151,22 @@ namespace Xamarin.Forms.RadialMenu
                 Notifier.Text = "";
 
             };
-            Menu.ChildShrinkEasing = Easing.CubicOut;
-            Menu.ChildGrowEasing = Easing.CubicInOut;
-            Menu.MenuOpenEasing = Easing.BounceIn;
-            Menu.MenuCloseEasing = Easing.BounceOut;
         }
 
     }
 
-    public class CustomizedItem : RadialMenuItem
+    internal class CustomizedItem : RadialMenuItem
     {
         public override void Draw()
-        {
+        { 
             var itemGrid = new StackLayout() { Spacing = 0 };
-            if (Source != null)
-            {
+            itemGrid.Children.Add(new Image() { Source = Source });
+            var label = new Label() { FontSize = 10, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, TextColor = Color.White, HorizontalTextAlignment = TextAlignment.Center, Text = Title, Margin = new Thickness(0, 1, 0, 0) };
+            itemGrid.Children.Add(label);
 
-                itemGrid.Children.Add(new Image() { Source = Source });
-                var label = new Label() { FontSize = 10, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, TextColor = Color.White, HorizontalTextAlignment = TextAlignment.Center, Text = Title, Margin = new Thickness(0, 1, 0, 0) };
-                itemGrid.Children.Add(label);
-                Content = itemGrid;
-            }
+            //Tell base class this is the content to draw when Draw() is called internally.
+            Content = itemGrid;
+            
         }
     }
 }
