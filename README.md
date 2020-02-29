@@ -32,11 +32,18 @@ or download repo and compile it manually so you can reference it from your targe
                           MainMenuImageSource="menu_circle.png"              <!-- MAIN MENU IMAGE-->
                           MenuItemsSource="{Binding MenuItems}" 
                           Grid.Row="0" x:Name="Menu" 
-                          CloseMenuWhenChildTapped="false"                  
-                          ChildGrowAnimationDuration="300"
-                          ChildShrinkAnimationDuration="300"
+                          CloseMenuWhenChildTapped="false"
+                          ChildGrowAnimationDuration="400"
+                          ChildShrinkAnimationDuration="400"
                           MenuOpenAnimationDuration="800"
                           MenuCloseAnimationDuration="800"
+                          IsMenuSandboxEnabled="False"
+                          MenuItemAppearingDuration="100"
+                          MenuItemHidingDuration="80"
+                          ChildGrowEasing="{x:Static Easing.SpringOut}"
+                          ChildShrinkEasing="{x:Static Easing.CubicOut}"
+                          MenuOpenEasing="{x:Static Easing.BounceIn}"
+                          MenuCloseEasing="{x:Static Easing.BounceOut}"
                           IsShadowVisible="True">
                           
                            <!--HORIZONTAL/VERTICAL OPTIONS ARE DIFFERENT FOR EACH PLATFORM -->
