@@ -7,6 +7,7 @@ namespace Xamarin.Forms.RadialMenu.Models
 {
     public class RadialMenuItem : ContentView
     {
+        public bool IsOrganized { get; internal set; } = false;
         //Close,Open or Layout item?
         public bool IsDefaultButton { get; set; } = false;
         public Enumerations.Enumerations.RadialMenuLocation Location { get; set; }

@@ -347,8 +347,10 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
         private bool _isAnimating = false;
         private uint _animationDelay = 300;
 
-        private void OrganizeItem(RadialMenuItem _item)
+        private RadialMenuItem OrganizeItem(RadialMenuItem _item)
         {
+            _item.IsVisible = false;
+            if (_item.IsOrganized) return _item;
             switch (_item.Location)
             {
                 case Enumerations.Enumerations.RadialMenuLocation.N:
@@ -377,8 +379,9 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
                     break;
 
             }
-            _item.IsVisible = false;
             _item.Draw();
+            _item.IsOrganized = true;
+            return _item;
         }
         public RadialMenu()
         {
@@ -539,7 +542,7 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
                 for (int j = 0; j < MenuItemsSource.Count; j++)
                 {
                     var childItem = MenuItemsSource[j] as RadialMenuItem;
-                    //OrganizeItem(childItem);
+                    OrganizeItem(childItem);
                     mainGrid.Children.Add(childItem);
                     HandleOptionClicked(childItem, childItem.Location);
                 }
@@ -695,9 +698,9 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
         }
         private void ClearGridButtons()
         {
-            if (MenuItemsSource == null || MenuItemsSource.Count <= 0) return;
+            if (mainGrid.Children == null || mainGrid.Children.Count <= 0) return;
             var speed = 25U;
-            var list = MenuItemsSource as IList<RadialMenuItem>;
+            var list = mainGrid.Children as IList<RadialMenuItem>;
             var orderedList = list?.OrderBy(x => x.AppearingOrder);
             if (orderedList != null)
             {
@@ -707,10 +710,6 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
                     if (i.Title != "OuterCircle" && i.Title != "InnerButtonMenu" &&
                         i.Title != "InnerButtonClose" && i.Title != "BackButton")
                         mainGrid.Children.Remove(i);
-
-
-
-
                 }
             }
         }

@@ -27,7 +27,7 @@ namespace Xamarin.Forms.RadialMenu
             {
                 new CustomizedItem()
                 {
-                    AppearingOrder = 3,
+                    AppearingOrder = 0,
                     Source = "menu_paint.png",
                     WidthRequest = 38,
                     HeightRequest = 38,
@@ -70,7 +70,7 @@ namespace Xamarin.Forms.RadialMenu
                 },
             new RadialMenuItem()
             {
-                AppearingOrder = 1,
+                AppearingOrder = 0,
                 Source = "menu_lorry.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
@@ -95,7 +95,7 @@ namespace Xamarin.Forms.RadialMenu
             },
             new RadialMenuItem()
             {
-                AppearingOrder = 2,
+                AppearingOrder = 0,
                 Source = "menu_factory.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
@@ -105,7 +105,7 @@ namespace Xamarin.Forms.RadialMenu
             },
             new CustomizedItem()
             {
-                AppearingOrder = 4,
+                AppearingOrder = 0,
                 Source = "menu_cow.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
@@ -116,7 +116,7 @@ namespace Xamarin.Forms.RadialMenu
             },
             new RadialMenuItem()
             {
-                AppearingOrder = 5,
+                AppearingOrder = 0,
                 Source = "menu_plane.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
@@ -126,7 +126,7 @@ namespace Xamarin.Forms.RadialMenu
             },
             new RadialMenuItem()
             {
-                AppearingOrder = 6,
+                AppearingOrder = 0,
                 Source = "menu_award.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
