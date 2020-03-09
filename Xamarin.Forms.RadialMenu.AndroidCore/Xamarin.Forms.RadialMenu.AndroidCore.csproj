@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>Xamarin.Forms.RadialMenu.AndroidCore</PackageId>
-    <PackageVersion>1.0.0.1</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <Authors>Ricardo Vasquez Sierra</Authors>
     <PackageIconUrl>https://arqueror.blob.core.windows.net/publicfiles/Icon.ico</PackageIconUrl>
     <NeutralLanguage>en</NeutralLanguage>

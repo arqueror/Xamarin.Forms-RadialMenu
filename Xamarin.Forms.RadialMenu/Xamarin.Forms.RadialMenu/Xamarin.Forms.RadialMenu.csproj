@@ -13,13 +13,16 @@
     <PackageTags>Xamarin.Forms RadialMenu</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>A simple Xamarin.Forms Radial menu without custom renderers</Description>
-    <Version>1.0.1</Version>
-    <PackageVersion>1.0.1.5</PackageVersion>
+    <Version>2.0.1</Version>
+    <PackageVersion>2.0.1</PackageVersion>
     <Owners>Ricardo Vasquez Sierra</Owners>
-    <PackageReleaseNotes>Added support for Smart Boundaries</PackageReleaseNotes>
+    <PackageReleaseNotes>*Added support for Xamarin.Forms 4.5
+*Added support for Android 9.0
+*Added appearing order property</PackageReleaseNotes>
     <Summary>Simple Xamarin.Forms RadialMenu</Summary>
     <Title>Xamarin.Forms.RadialMenu</Title>
     <PackageId>Xamarin.Forms.RadialMenu</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F3543572-AD0F-47C7-8CE1-5FA371FFADCA}</ProjectGuid>
+    <ProjectGuid>{859608E0-FE57-4BF7-80A6-D44D18581CFC}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Xamarin.Forms.RadialMenu.iOS</RootNamespace>
+    <RootNamespace>NugetTestApp.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Xamarin.Forms.RadialMenu.iOS</AssemblyName>
+    <AssemblyName>NugetTestApp.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -148,38 +148,28 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms.RadialMenu.iOSCore">
+      <Version>2.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.Forms.RadialMenu\Xamarin.Forms.RadialMenu.csproj">
-      <Project>{3C3FEE3B-45C2-4C7F-B542-E902B6FE735F}</Project>
-      <Name>Xamarin.Forms.RadialMenu</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Xamarin.Forms.RadialMenu.iOSCore\Xamarin.Forms.RadialMenu.iOSCore.csproj">
-      <Project>{BEF52819-F2C9-4C8D-BF9D-54E46481D897}</Project>
-      <Name>Xamarin.Forms.RadialMenu.iOSCore</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
+    <ProjectReference Include="..\NugetTestApp\NugetTestApp.csproj">
+      <Project>{1AB4EAC9-B433-431B-B91D-C34907FFB93F}</Project>
+      <Name>NugetTestApp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\close_circle.png" />
-    <BundleResource Include="Resources\back_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\menu_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\outer_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Default-Portrait%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Default.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\menu_stationary.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\menu_acorn.png" />
@@ -191,13 +181,13 @@
     <BundleResource Include="Resources\menu_award.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\menu_circle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\menu_cow.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\menu_factory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\back_circle.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\menu_lorry.png" />
@@ -207,11 +197,5 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\menu_plane.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_stationary.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\outer_circle.png" />
   </ItemGroup>
 </Project>
