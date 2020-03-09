@@ -77,46 +77,77 @@ or download repo and compile it manually so you can reference it from your targe
     
 **2.- And your ViewModel/Codebehind code will look similar to:**
 ```C#
-//Add controls to Menu collection
+            //Add items at initialization. Otherwise items won't show
             vm = new MainMenuViewModel();
             BindingContext = vm;
-            vm.MenuItems = new ObservableCollection<RadialMenuItem>()
+           vm.MenuItems = new ObservableCollection<RadialMenuItem>()
             {
-                new RadialMenuItem()
+                new CustomizedItem()
                 {
+                    AppearingOrder = 0,
                     Source = "menu_paint.png",
                     WidthRequest = 38,
                     HeightRequest = 38,
                     VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.Center,
-                    Location = Enumerations.Enumerations.RadialMenuLocation.N,
-                     ChildItems = new ObservableCollection<RadialMenuItem>()
+                    Location = Enumerations.Enumerations.RadialMenuLocation.N,Title="North",
+                    ChildItems=new ObservableCollection<RadialMenuItem>()
                     {
 
                             new RadialMenuItem()
                             {
-                                Source = "menu_factory.png",
+                                Source = "menu_lorry.png",
                                 WidthRequest = 38,
                                 HeightRequest = 38,
                                 VerticalOptions = LayoutOptions.Center,
                                 HorizontalOptions = LayoutOptions.Center,
                                 Location = Enumerations.Enumerations.RadialMenuLocation.N
 
-                            }
+                            },
+                        new RadialMenuItem()
+                        {
+                            Source = "menu_lorry.png",
+                            WidthRequest = 38,
+                            HeightRequest = 38,
+                            VerticalOptions = LayoutOptions.Center,
+                            HorizontalOptions = LayoutOptions.Center,
+                            Location = Enumerations.Enumerations.RadialMenuLocation.Ne
+                        }, new RadialMenuItem()
+                        {
+                            Source = "menu_factory.png",
+                            WidthRequest = 38,
+                            HeightRequest = 38,
+                            VerticalOptions = LayoutOptions.Center,
+                            HorizontalOptions = LayoutOptions.Center,
+                            Location = Enumerations.Enumerations.RadialMenuLocation.E
+
+                        },
 
                     }
-                }
-            };
-            vm.MenuItems.Add(new RadialMenuItem()
+                },
+            
+            new CustomizedItem()
             {
-                Source = "menu_lorry.png",
+                AppearingOrder = 0,
+                Source = "menu_cow.png",
                 WidthRequest = 38,
                 HeightRequest = 38,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
-                Location = Enumerations.Enumerations.RadialMenuLocation.Ne
-            });
- ........
+                Location = Enumerations.Enumerations.RadialMenuLocation.Se,
+                Title = "SE"
+            },
+            new RadialMenuItem()
+            {
+                AppearingOrder = 0,
+                Source = "menu_award.png",
+                WidthRequest = 38,
+                HeightRequest = 38,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center,
+                Location = Enumerations.Enumerations.RadialMenuLocation.Sw
+            }};
+
 ```
 ## Properties
             //Animations**
