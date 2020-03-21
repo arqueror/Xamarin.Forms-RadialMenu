@@ -14,7 +14,7 @@ or download repo and compile it manually so you can reference it from your targe
 
 # Usage
 **1.- Just reference it in your View and set MenuItemsSource property:**
-```C#
+```xml
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"   
              <!-- REFERENCE XAML NAMESPACE-->
