@@ -6,6 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
-    <PackageReference Include="Xamarin.Forms.RadialMenu" Version="2.0.1" />
+    <PackageReference Include="Xamarin.Forms.RadialMenu" Version="2.0.2" />
   </ItemGroup>
 </Project>

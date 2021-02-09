@@ -154,6 +154,16 @@ namespace NugetTestApp
                 Notifier.Text = "";
 
             };
+
+            Menu.MenuClosed += (s, a) => 
+            {
+                var closed = true;
+            };
+
+            Menu.MenuOpened += (s, a) =>
+            {
+                var opened = true;
+            };
         }
 
     }
