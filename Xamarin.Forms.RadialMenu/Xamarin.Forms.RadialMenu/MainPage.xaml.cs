@@ -151,6 +151,18 @@ namespace Xamarin.Forms.RadialMenu
                 Notifier.Text = "";
 
             };
+
+            Menu.MenuOpened += (s, a) => 
+            {
+                var open = true;
+            
+            };
+
+            Menu.MenuClosed += (s, a) =>
+            {
+                var closed = true;
+
+            };
         }
 
     }

@@ -21,6 +21,8 @@ namespace Xamarin.Forms.RadialMenu
 
         public event EventHandler<Enumerations.Enumerations.RadialMenuLocation> ItemTapped;
         public event EventHandler<ChildItemTapped> ChildItemTapped;
+        public event EventHandler MenuClosed;
+        public event EventHandler MenuOpened;
         private static RadialMenuItem ParentInBackgroundItem { get; set; }
         /// <summary>
         /// Each menu item hiding animation duration in milliseconds .Default value is 80
@@ -579,6 +581,8 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
                     InnerButtonClose.IsVisible = false;
                     BackButton.IsVisible = false;
                     _isAnimating = false;
+
+                    MenuClosed?.Invoke(this, null);
                 }
                 else
                 {
@@ -662,6 +666,7 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
 
                 _isAnimating = false;
 
+                MenuOpened?.Invoke(this, null);
             }
         }
         private async Task HideButtons(IList items, uint speed = 25)
