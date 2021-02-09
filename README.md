@@ -184,6 +184,16 @@ or download repo and compile it manually so you can reference it from your targe
                 Notifier.Text = "";
 
             };
+            
+    Menu.MenuClosed += async (s, a) =>
+            {
+               
+            };
+            
+    Menu.MenuOpened += async (s, a) =>
+            {
+               
+            };
 
 ```
 
