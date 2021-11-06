@@ -35,16 +35,6 @@ namespace Xamarin.Forms.RadialMenu
             set => SetValue(ItemTappedCommandProperty, value);
         }
         
-        /// <summary>
-        /// Gets or sets the parameter that will be passed to the ItemTappedCommand when menu item is tapped
-        /// </summary>
-        public static readonly BindableProperty ItemTappedCommandParameterProperty =
-            BindableProperty.Create(nameof(ItemTappedCommandParameter), typeof(object), typeof(RadialMenu), null);
-        public object ItemTappedCommandParameter
-        {
-            get => (object)GetValue(ItemTappedCommandParameterProperty);
-            set => SetValue(ItemTappedCommandParameterProperty, value);
-        }
         
         /// <summary>
         /// Gets or sets the command that will fire when menu child item is tapped
@@ -57,16 +47,6 @@ namespace Xamarin.Forms.RadialMenu
             set => SetValue(ChildItemTappedCommandProperty, value);
         }
         
-        /// <summary>
-        /// Gets or sets the parameter that will be passed to the ItemTappedCommand when menu child item is tapped
-        /// </summary>
-        public static readonly BindableProperty ChildItemTappedCommandParameterProperty =
-            BindableProperty.Create(nameof(ChildItemTappedCommandParameter), typeof(object), typeof(RadialMenu), null);
-        public object ChildItemTappedCommandParameter
-        {
-            get => (object)GetValue(ChildItemTappedCommandParameterProperty);
-            set => SetValue(ChildItemTappedCommandParameterProperty, value);
-        }
 
         
         /// <summary>
@@ -449,7 +429,7 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
                 {
                     //IsOpened = false;
                     ChildItemTapped?.Invoke(this, new Models.ChildItemTapped() { Parent = ParentInBackgroundItem, ItemTapped = value });
-                    ChildItemTappedCommand?.Execute(ChildItemTappedCommandParameter);
+                    ChildItemTappedCommand?.Execute( new Models.ChildItemTapped() { Parent = ParentInBackgroundItem, ItemTapped = value });
                     if (CloseMenuWhenChildTapped)
                     {
                         IsOpened = false;
@@ -517,7 +497,7 @@ BindableProperty.Create(nameof(MenuCloseEasing), typeof(Easing), typeof(RadialMe
                 {
                     ParentInBackgroundItem = item;
                     ItemTapped?.Invoke(this, value);
-                    ItemTappedCommand?.Execute(ItemTappedCommandParameter);
+                    ItemTappedCommand?.Execute(value);
                     
                     if (item.ChildItems?.Count > 0)
                     {
