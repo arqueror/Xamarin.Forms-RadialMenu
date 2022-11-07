@@ -1,5 +1,5 @@
 # Xamarin.Forms-RadialMenu 
-<img src="https://arqueror.blob.core.windows.net/publicfiles/Icon.ico" width="144">     
+<img src="https://api.nuget.org/v3-flatcontainer/xamarin.forms.radialmenu/2.0.2/icon" width="144">     
 Xamarin.Forms simple radial menu without renderers. **Android, iOS and UWP Supported**
 
 # .NET MAUI Support (In Progress)
