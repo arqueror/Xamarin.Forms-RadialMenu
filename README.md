@@ -220,7 +220,7 @@ By default it follows clockwise to animate items when showing(First North then N
  ![Image of Yaktocat](https://image.shutterstock.com/image-vector/wind-rose-cardinal-points-star-260nw-1011439111.jpg)
 
 # How it looks
-![Alt Text](https://arqueror.blob.core.windows.net/publicfiles/RadialMenu.gif)
+![Alt Text](https://github.com/arqueror/Xamarin.Forms-RadialMenu/blob/master/images/RadialMenu.gif)
   
   
   # Adding Custom Content
@@ -290,10 +290,6 @@ You can find the **iOS** renderer here:
 
 
 **Call Abstractions.Init()** on each platform
-
-
-![Alt Text](https://arqueror.blob.core.windows.net/publicfiles/RadialMenuRendererAndroid.gif)
-
 
 # Missing Features
 - **Draggable renderer for UWP**
