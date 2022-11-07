@@ -2,6 +2,9 @@
 <img src="https://arqueror.blob.core.windows.net/publicfiles/Icon.ico" width="144">     
 Xamarin.Forms simple radial menu without renderers. **Android, iOS and UWP Supported**
 
+# .NET MAUI Support (In Progress)
+Currently working on .Net MAUI migration (maui_migration branch)
+ 
 
 # Motivation
   - Create a reusable RadialMenu without relying on any CustomRenderer
