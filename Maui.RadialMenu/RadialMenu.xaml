@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui" x:Name="control"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Maui.RadialMenu.Models"
+             x:Class="Maui.RadialMenu.RadialMenu">
+        <Grid x:Name="mainGrid">
+                <local:RadialMenuItem IsDefaultButton="true" Title="OuterCircle"  x:Name="OuterCircle" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" IsShadowVisible="{Binding Source={x:Reference control}, Path=IsShadowVisible}" Source="{Binding Source={x:Reference control}, Path=OuterCircleImageSource}"></local:RadialMenuItem>
+                <local:RadialMenuItem IsDefaultButton="true" Title="InnerButtonMenu" x:Name="InnerButtonMenu" Opacity="1" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=MainMenuImageSource}"></local:RadialMenuItem>
+                <local:RadialMenuItem IsDefaultButton="true" Title="InnerButtonClose" x:Name="InnerButtonClose" Opacity="0" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=MainMenuCloseButtonImageSource}"></local:RadialMenuItem>
+            <local:RadialMenuItem IsDefaultButton="true"  Title="BackButton" x:Name="BackButton" Opacity="0" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" Source="{Binding Source={x:Reference control}, Path=BackButtonImageSource}"></local:RadialMenuItem>
+
+        </Grid>
+</ContentView>

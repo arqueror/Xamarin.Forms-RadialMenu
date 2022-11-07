@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Maui.RadialMenu;assembly=Maui.RadialMenu"
+             x:Class="Maui.RadialMenu.TestApp.MainPage">
+
+      <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition>
+            </RowDefinition>
+            <RowDefinition Height="40">
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        <local:RadialMenu 
+                          BackButtonImageSource="back_circle.png" 
+                          OuterCircleImageSource="outer_circle.png" 
+                          MainMenuCloseButtonImageSource="close_circle.png" 
+                          MainMenuImageSource="menu_circle.png" 
+                          MenuItemsSource="{Binding MenuItems}" 
+                          Grid.Row="0" x:Name="Menu"
+                          CloseMenuWhenChildTapped="false"
+                          ChildGrowAnimationDuration="400"
+                          ChildShrinkAnimationDuration="400"
+                          MenuOpenAnimationDuration="800"
+                          MenuCloseAnimationDuration="800"
+                          IsMenuSandboxEnabled="True"
+                          MenuItemAppearingDuration="150"
+                          MenuItemHidingDuration="80"
+                          ChildGrowEasing="{x:Static Easing.SpringOut}"
+                          ChildShrinkEasing="{x:Static Easing.CubicOut}"
+                          MenuOpenEasing="{x:Static Easing.BounceIn}"
+                          MenuCloseEasing="{x:Static Easing.BounceOut}"
+                          IsShadowVisible="True">
+
+            <local:RadialMenu.HorizontalOptions>
+                <OnPlatform x:TypeArguments="LayoutOptions">
+                    <On Platform="Android" Value="Center" />
+                    <On Platform="iOS" Value="Fill" />
+                </OnPlatform>
+            </local:RadialMenu.HorizontalOptions>
+            <local:RadialMenu.VerticalOptions>
+                <OnPlatform x:TypeArguments="LayoutOptions">
+                    <On Platform="Android" Value="Center" />
+                    <On Platform="iOS" Value="Fill" />
+                </OnPlatform>
+            </local:RadialMenu.VerticalOptions>
+        </local:RadialMenu>
+        <Label x:Name="Notifier" Grid.Row="1" HorizontalTextAlignment="Center">
+        </Label>
+    </Grid>
+
+</ContentPage>
